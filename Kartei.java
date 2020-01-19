@@ -49,6 +49,7 @@ public class Kartei {
             freundAnlegen();
             break;
         }
+        // Other functions to be made
         case 2: {
             break;
         }
