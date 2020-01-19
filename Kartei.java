@@ -6,6 +6,7 @@ Author: Leah Chercham
 */
 import java.util.Scanner;
 import java.util.UUID;
+import java.util.Vector;
 
 public class Kartei {
     private static int bestand = 0;
@@ -63,8 +64,11 @@ public class Kartei {
         auswahlAnzeigen();
     }
 
+    private static Vector<Freund> arr = new Vector<Freund>();
+    
     private static void bestandAbfragen() {
         System.out.println("Du hast " + bestand + " Freunde in deiner Kartei.");
+        auswahlAnzeigen();
     }
 
     private static void freundAnlegen() {
@@ -86,11 +90,17 @@ public class Kartei {
 
         UUID schluessel = UUID.randomUUID();
 
-        new Freund(vorname, nachname, geburtstag, telefon, handy, adresse, schluessel);
+        arr.add(new Freund(vorname, nachname, geburtstag, telefon, handy, adresse, schluessel));
         bestand++;
         System.out.println("Der Freund " + vorname + " " + nachname + " wurde in der Kartei angelegt.");
         auswahlAnzeigen();
     }
+/*
+Jetzt habe ich den Vector Freund in dieser Klasse. Eigentlich sollte er in der Freund Klasse sein.
+Ich könnte zum Beispiel die Funktion freund anlegen nach Freund.java verschieben. 
+Oder ich erstelle eine dritte Klasse zur verwaltung
+*/
+
 
     // Eingabe speichern new Freund eingabe
 

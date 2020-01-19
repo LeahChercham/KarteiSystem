@@ -1,4 +1,5 @@
 import java.util.UUID;
+import java.util.Vector;
 
 /*
 Die Klasse Freund verwaltet Freundesdaten
@@ -15,10 +16,13 @@ public class Freund {
     private String adresse; // Als Klasse ? Braucht PLZ Ort und Str.
     private UUID schluessel; // eindeutige identifizierung
 
-    public String getFreund() {
-        // return Friend infos
-        return "jaja";
-    }
+    // vector: growable array
+
+
+    // public String getFreund() {
+    //     // return Friend infos
+    //     return "jaja";
+    // }
 
     // 2 Methoden um Vor und Nachname zu setzen / vielleicht für änderungen benutzen.
     // public void setVorname(String n) {
