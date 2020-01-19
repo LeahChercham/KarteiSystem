@@ -11,20 +11,21 @@ import java.util.Vector;
 
 public class Kartei {
     private int bestand = 0;
-    public static void main(String[] args) throws Exception{
+
+    public static void main(String[] args) throws Exception {
         Kartei kartei = null;
         // Hier Kartei kreeieren ? Wie ruft man methoden von der command line java ?
-        if(args.length == 1){
+        if (args.length == 1) {
             kartei = new Kartei(args[0]);
             kartei.auswahlAnzeigen();
             kartei.datenSpeichern(args[0]);
         } else {
             System.out.println("Aufruf mit: java Kartei Dateiname.txt");
         }
-    
+
     }
-    
-// Die Methode auswahlAnzeigen zeigt eine Auswahl an
+
+    // Die Methode auswahlAnzeigen zeigt eine Auswahl an
     private void auswahlAnzeigen() {
         System.out.println("Bitte Zahl und dann RETURN eingeben:");
         System.out.println("<1> Freund anlegen");
@@ -36,7 +37,7 @@ public class Kartei {
         auswahlAuswerten();
     }
 
-// Die Methode auswahlAuswerten wertet die Eingabe des Anwenders aus
+    // Die Methode auswahlAuswerten wertet die Eingabe des Anwenders aus
     private void auswahlAuswerten() {
         Scanner input = new Scanner(System.in); // Never closed ?
         int auswahl = input.nextInt();
@@ -78,25 +79,27 @@ public class Kartei {
         if(file.exists()){
             FileInputStream fis = new FileInputStream(dateiName);
             Scanner scan = new Scanner (fis);
-            scan.useDelimiter("\\s*:\\s*");
+            scan.useDelimiter("\\s:");
 
             while(scan.hasNext()){
-                scan.next();
-                arr.add(new Freund(scan.next(), scan.next(), scan.next(), scan.nextInt(), scan.nextInt(), scan.next(), scan.next()));
+               System.out.println("scannext: " + scan.next());
+               scan.next();
+                // arr.add(new Freund(scan.next(), scan.next(), scan.next(), scan.nextInt(), scan.nextInt(), scan.next(), scan.next()));
             }
             fis.close();
         }
-        
     }
+
     private Vector<Freund> arr = new Vector<Freund>();
 
-    public void datenSpeichern(String dateiName) throws Exception{
-        PrintStream out = new PrintStream(new FileOutputStream (dateiName));
-        for(Freund element : arr)
-        out.println(element + " :");
+    public void datenSpeichern(String dateiName) throws Exception {
+        PrintStream out = new PrintStream(new FileOutputStream(dateiName));
+        System.out.println("Arr: " + arr);
+        for (Freund element : arr) {
+            out.println(element + " :");
+        }
         out.close();
     }
-
 
     private void bestandAbfragen() {
         System.out.println("Du hast " + bestand + " Freunde in deiner Kartei.");
@@ -121,8 +124,8 @@ public class Kartei {
         String adresse = eingabe.next();
 
         String schluessel = UUID.randomUUID().toString();
-
-        arr.add(new Freund(vorname, nachname, geburtstag, telefon, handy, adresse, schluessel));
+        Freund f1 = new Freund(vorname, nachname, geburtstag, telefon, handy, adresse, schluessel);
+        arr.add(f1);
         bestand++;
         System.out.println("Der Freund " + vorname + " " + nachname + " wurde in der Kartei angelegt.");
         auswahlAnzeigen();

@@ -37,6 +37,28 @@ public class Freund {
         return (vorname + " " + nachname);
     }
 
+    public String getVorname(){
+        return vorname;
+    }
+    public String getNachname(){
+        return nachname;
+    }
+    public String getGeburtstag(){
+        return geburtstag;
+    }
+    public int getHandy(){
+        return handy;
+    }
+    public int getTelefon(){
+        return telefon;
+    }
+    public String getAdresse(){
+        return adresse;
+    }
+    public String getSchluessel(){
+        return schluessel;
+    }
+
     // Konstruktor, automatisch durch new-Operator aufgerufen - new Operator in
     // klasse Kartei ?
     public Freund(String vorname, String nachname, String geburtstag, int telefon, int handy, String adresse,
