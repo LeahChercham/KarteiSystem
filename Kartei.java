@@ -5,6 +5,7 @@ Version 1.0
 Author: Leah Chercham
 */
 import java.util.Scanner;
+import java.util.UUID;
 
 public class Kartei {
     private static int bestand = 0;
@@ -82,8 +83,8 @@ public class Kartei {
         int telefon = eingabe.nextInt();
         System.out.print("Adresse eingeben: ");
         String adresse = eingabe.next();
-        System.out.print("Schluessel eingeben: ");
-        String schluessel = eingabe.next();
+
+        UUID schluessel = UUID.randomUUID();
 
         new Freund(vorname, nachname, geburtstag, telefon, handy, adresse, schluessel);
         bestand++;

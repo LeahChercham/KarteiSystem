@@ -1,3 +1,5 @@
+import java.util.UUID;
+
 /*
 Die Klasse Freund verwaltet Freundesdaten
 Version 1.0
@@ -11,7 +13,7 @@ public class Freund {
     private int telefon;
     private int handy;
     private String adresse; // Als Klasse ? Braucht PLZ Ort und Str.
-    private String schluessel; // eindeutige identifizierung
+    private UUID schluessel; // eindeutige identifizierung
 
     public String getFreund() {
         // return Friend infos
