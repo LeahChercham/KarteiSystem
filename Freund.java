@@ -1,3 +1,9 @@
+/*
+Die Klasse Freund verwaltet Freundesdaten
+Version 1.0
+Author: Leah Chercham
+*/
+
 public class Freund {
     private String vorname;
     private String nachname;
