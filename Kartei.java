@@ -13,16 +13,60 @@ public class Kartei {
     // mit null initialisieren
 
     // Eingabe rufen
-    public static void main(String[] args) {
-        // Hier Kartei kreeieren ? Wie ruft man methoden von der command line java ? 
+
+    private static void auswahlAnzeigen() {
+        System.out.println("Bitte Zahl und dann RETURN eingeben:");
+        System.out.println("<1> Freund anlegen");
+        System.out.println("<2> Freund suchen");
+        System.out.println("<3> Freund verändern");
+        System.out.println("<4> Freund löschen");
+        System.out.println("<5> Anzahl gespeicherter Freunde angeben");
+        System.out.println("<6> Beenden");
+        auswahlAuswerten();
     }
 
-    public void bestandAbfragen() {
+    private static void auswahlAuswerten() {
+        Scanner eingabe = new Scanner(System.in);
+        int auswahl = eingabe.nextInt();
+        eingabe.nextLine(); // Zeilenumbruch einlesen
+        eingabe.close();
+
+        switch (auswahl) {
+        case 1: {
+            freundAnlegen();
+            break;
+        }
+        case 2: {
+            break;
+        }
+        case 3: {
+            break;
+        }
+        case 4: {
+            break;
+        }
+        case 5: {
+            bestandAbfragen();
+            break;
+        }
+        case 6: {
+            break;
+        }
+        default:
+            System.out.println("Falsche Eingabe");
+        }
+    }
+
+    public static void main(String[] args) {
+        // Hier Kartei kreeieren ? Wie ruft man methoden von der command line java ?
+        auswahlAnzeigen();
+    }
+
+    private static void bestandAbfragen() {
         System.out.println("Du hast " + bestand + " Freunde in deiner Kartei.");
     }
 
-    public void freundAnlegen() {
-        Freund refFreund = null;
+    private static void freundAnlegen() {
         Scanner eingabe = new Scanner(System.in);
 
         System.out.print("Vorname eingeben: ");
@@ -41,7 +85,7 @@ public class Kartei {
         System.out.print("Schluessel eingeben: ");
         String schluessel = eingabe.next();
 
-        refFreund = new Freund(vorname, nachname, geburtstag, telefon, handy, adresse, schluessel);
+        new Freund(vorname, nachname, geburtstag, telefon, handy, adresse, schluessel);
         bestand++;
         System.out.println("Der Freund " + vorname + " " + nachname + " wurde in der Kartei angelegt.");
         eingabe.close();
