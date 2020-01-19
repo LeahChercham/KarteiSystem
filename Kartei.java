@@ -1,18 +1,27 @@
+
 /*
 Die Klasse Kartei verwaltet die gesamten Freunde
 Version 1.0
 Author: Leah Chercham
 */
 import java.util.Scanner;
+
 public class Kartei {
     private static int bestand = 0;
 
     // Referenzvariable refFreund von Typ Freund anlegen und
     // mit null initialisieren
-    
+
     // Eingabe rufen
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
+        // Hier Kartei kreeieren ? Wie ruft man methoden von der command line java ? 
+    }
+
+    public void bestandAbfragen() {
+        System.out.println("Du hast " + bestand + " Freunde in deiner Kartei.");
+    }
+
+    public void freundAnlegen() {
         Freund refFreund = null;
         Scanner eingabe = new Scanner(System.in);
 
@@ -35,11 +44,9 @@ public class Kartei {
         refFreund = new Freund(vorname, nachname, geburtstag, telefon, handy, adresse, schluessel);
         bestand++;
         System.out.println("Der Freund " + vorname + " " + nachname + " wurde in der Kartei angelegt.");
-        System.out.println("Du hast " + bestand + " Freunde in deiner Kartei.");
         eingabe.close();
     }
 
-    
     // Eingabe speichern new Freund eingabe
 
     //
