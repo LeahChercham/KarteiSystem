@@ -1,4 +1,4 @@
-import java.util.UUID;
+
 import java.util.Vector;
 
 /*
@@ -14,7 +14,7 @@ public class Freund {
     private int telefon;
     private int handy;
     private String adresse; // Als Klasse ? Braucht PLZ Ort und Str.
-    private UUID schluessel; // eindeutige identifizierung
+    private String schluessel; // eindeutige identifizierung
 
     // vector: growable array
 
@@ -40,7 +40,7 @@ public class Freund {
     // Konstruktor, automatisch durch new-Operator aufgerufen - new Operator in
     // klasse Kartei ?
     public Freund(String vorname, String nachname, String geburtstag, int telefon, int handy, String adresse,
-            UUID schluessel) // ... alle auflisten
+            String schluessel) // ... alle auflisten
     {
         this.vorname = vorname;
         this.nachname = nachname;

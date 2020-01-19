@@ -4,6 +4,7 @@ Die Klasse Kartei verwaltet die gesamten Freunde
 Version 1.0
 Author: Leah Chercham
 */
+import java.io.*;
 import java.util.Scanner;
 import java.util.UUID;
 import java.util.Vector;
@@ -28,10 +29,10 @@ public class Kartei {
     }
 
     private static void auswahlAuswerten() {
-        Scanner input = new Scanner(System.in); // Never closed ? 
+        Scanner input = new Scanner(System.in); // Never closed ?
         int auswahl = input.nextInt();
         input.nextLine(); // Zeilenumbruch einlesen
-       // input.close();
+        // input.close();
 
         switch (auswahl) {
         case 1: {
@@ -52,6 +53,9 @@ public class Kartei {
             break;
         }
         case 6: {
+            // Hier Sachen speichern weil hier der einzige Ort zum Beenden des Programms
+            // sein soll. Alle anderen rufen auswahl anzeigen wieder auf
+            // das sollte in einer anderen Klasse sein zum Beispiel Verwaltung
             break;
         }
         default:
@@ -59,13 +63,43 @@ public class Kartei {
         }
     }
 
-    public static void main(String[] args) {
+    // Das heisst ich muss Kartei konstruierin in Main
+    public Kartei (String dateiName) throws Exception{
+        File file = new File(dateiName);
+        if(file.exists()){
+            FileInputStream fis = new FileInputStream(dateiName);
+            Scanner scan = new Scanner (fis);
+            scan.useDelimiter("\\s*:\\s*");
+
+            while(scan.hasNext()){
+                scan.next();
+                arr.add(new Freund(scan.next(), scan.next(), scan.next(), scan.nextInt(), scan.nextInt(), scan.next(), scan.next()));
+            }
+            fis.close();
+        }
+    }
+
+    public void datenSpeichern(String dateiName) throws Exception{
+        PrintStream out = new PrintStream(new FileOutputStream (dateiName));
+        for(Freund element : arr)
+        out.println(element + " :");
+        out.close();
+    }
+
+    public static void main(String[] args) throws Exception{
         // Hier Kartei kreeieren ? Wie ruft man methoden von der command line java ?
-        auswahlAnzeigen();
+        if(args.length == 1){
+            Kartei kartei = new Kartei(args[0]);
+            auswahlAnzeigen();
+            kartei.datenSpeichern(args[0]);
+        } else {
+            System.out.println("Aufruf mit: Java Kartei Dateiname.txt");
+        }
+
     }
 
     private static Vector<Freund> arr = new Vector<Freund>();
-    
+
     private static void bestandAbfragen() {
         System.out.println("Du hast " + bestand + " Freunde in deiner Kartei.");
         auswahlAnzeigen();
@@ -88,19 +122,19 @@ public class Kartei {
         System.out.print("Adresse eingeben: ");
         String adresse = eingabe.next();
 
-        UUID schluessel = UUID.randomUUID();
+        String schluessel = UUID.randomUUID().toString();
 
         arr.add(new Freund(vorname, nachname, geburtstag, telefon, handy, adresse, schluessel));
         bestand++;
         System.out.println("Der Freund " + vorname + " " + nachname + " wurde in der Kartei angelegt.");
         auswahlAnzeigen();
     }
-/*
-Jetzt habe ich den Vector Freund in dieser Klasse. Eigentlich sollte er in der Freund Klasse sein.
-Ich könnte zum Beispiel die Funktion freund anlegen nach Freund.java verschieben. 
-Oder ich erstelle eine dritte Klasse zur verwaltung
-*/
-
+    /*
+     * Jetzt habe ich den Vector Freund in dieser Klasse. Eigentlich sollte er in
+     * der Freund Klasse sein. Ich könnte zum Beispiel die Funktion freund anlegen
+     * nach Freund.java verschieben. Oder ich erstelle eine dritte Klasse zur
+     * verwaltung
+     */
 
     // Eingabe speichern new Freund eingabe
 
