@@ -10,14 +10,22 @@ import java.util.UUID;
 import java.util.Vector;
 
 public class Kartei {
-    private static int bestand = 0;
-
-    // Referenzvariable refFreund von Typ Freund anlegen und
-    // mit null initialisieren
-
-    // Eingabe rufen
-
-    private static void auswahlAnzeigen() {
+    private int bestand = 0;
+    public static void main(String[] args) throws Exception{
+        Kartei kartei = null;
+        // Hier Kartei kreeieren ? Wie ruft man methoden von der command line java ?
+        if(args.length == 1){
+            kartei = new Kartei(args[0]);
+            kartei.auswahlAnzeigen();
+            kartei.datenSpeichern(args[0]);
+        } else {
+            System.out.println("Aufruf mit: java Kartei Dateiname.txt");
+        }
+    
+    }
+    
+// Die Methode auswahlAnzeigen zeigt eine Auswahl an
+    private void auswahlAnzeigen() {
         System.out.println("Bitte Zahl und dann RETURN eingeben:");
         System.out.println("<1> Freund anlegen");
         System.out.println("<2> Freund suchen");
@@ -28,7 +36,8 @@ public class Kartei {
         auswahlAuswerten();
     }
 
-    private static void auswahlAuswerten() {
+// Die Methode auswahlAuswerten wertet die Eingabe des Anwenders aus
+    private void auswahlAuswerten() {
         Scanner input = new Scanner(System.in); // Never closed ?
         int auswahl = input.nextInt();
         input.nextLine(); // Zeilenumbruch einlesen
@@ -77,7 +86,9 @@ public class Kartei {
             }
             fis.close();
         }
+        
     }
+    private Vector<Freund> arr = new Vector<Freund>();
 
     public void datenSpeichern(String dateiName) throws Exception{
         PrintStream out = new PrintStream(new FileOutputStream (dateiName));
@@ -86,26 +97,13 @@ public class Kartei {
         out.close();
     }
 
-    public static void main(String[] args) throws Exception{
-        // Hier Kartei kreeieren ? Wie ruft man methoden von der command line java ?
-        if(args.length == 1){
-            Kartei kartei = new Kartei(args[0]);
-            auswahlAnzeigen();
-            kartei.datenSpeichern(args[0]);
-        } else {
-            System.out.println("Aufruf mit: Java Kartei Dateiname.txt");
-        }
 
-    }
-
-    private static Vector<Freund> arr = new Vector<Freund>();
-
-    private static void bestandAbfragen() {
+    private void bestandAbfragen() {
         System.out.println("Du hast " + bestand + " Freunde in deiner Kartei.");
         auswahlAnzeigen();
     }
 
-    private static void freundAnlegen() {
+    private void freundAnlegen() {
         Scanner eingabe = new Scanner(System.in);
 
         System.out.print("Vorname eingeben: ");
