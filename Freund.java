@@ -36,7 +36,7 @@ public class Freund {
     // Konstruktor, automatisch durch new-Operator aufgerufen - new Operator in
     // klasse Kartei ?
     public Freund(String vorname, String nachname, String geburtstag, int telefon, int handy, String adresse,
-            String schluessel) // ... alle auflisten
+            UUID schluessel) // ... alle auflisten
     {
         this.vorname = vorname;
         this.nachname = nachname;
