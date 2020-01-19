@@ -18,18 +18,18 @@ public class Kartei {
         System.out.println("Bitte Zahl und dann RETURN eingeben:");
         System.out.println("<1> Freund anlegen");
         System.out.println("<2> Freund suchen");
-        System.out.println("<3> Freund verändern");
-        System.out.println("<4> Freund löschen");
+        System.out.println("<3> Freund veraendern");
+        System.out.println("<4> Freund loeschen");
         System.out.println("<5> Anzahl gespeicherter Freunde angeben");
         System.out.println("<6> Beenden");
         auswahlAuswerten();
     }
 
     private static void auswahlAuswerten() {
-        Scanner eingabe = new Scanner(System.in);
-        int auswahl = eingabe.nextInt();
-        eingabe.nextLine(); // Zeilenumbruch einlesen
-        eingabe.close();
+        Scanner input = new Scanner(System.in); // Never closed ? 
+        int auswahl = input.nextInt();
+        input.nextLine(); // Zeilenumbruch einlesen
+       // input.close();
 
         switch (auswahl) {
         case 1: {
@@ -88,7 +88,7 @@ public class Kartei {
         new Freund(vorname, nachname, geburtstag, telefon, handy, adresse, schluessel);
         bestand++;
         System.out.println("Der Freund " + vorname + " " + nachname + " wurde in der Kartei angelegt.");
-        eingabe.close();
+        auswahlAnzeigen();
     }
 
     // Eingabe speichern new Freund eingabe
