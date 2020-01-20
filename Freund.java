@@ -60,7 +60,7 @@ public class Freund {
     }
 
     public String toString(){
-        return vorname + "XXX" + nachname + "XXX" + geburtstag + "XXX" + handy + "XXX" + telefon + "XXX" + adresse + "XXX" + schluessel;
+        return vorname + ":" + nachname + ":" + geburtstag + ":" + handy + ":" + telefon + ":" + adresse + ":" + schluessel;
     }
 
     public Freund(String vorname, String nachname, String geburtstag, int telefon, int handy, String adresse,

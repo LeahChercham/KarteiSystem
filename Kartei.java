@@ -76,25 +76,31 @@ public class Kartei {
     }
 
     // Das heisst ich muss Kartei konstruierin in Main
-    public Kartei (String dateiName) throws Exception{
+    public Kartei(String dateiName) throws Exception {
         File file = new File(dateiName);
-        if(file.exists()){
+        if (file.exists()) {
             FileInputStream fis = new FileInputStream(dateiName);
-            Scanner scan = new Scanner (fis);
-            scan.useDelimiter("\\s:");
 
-            while(scan.hasNext()){
-               System.out.println("scannext: " + scan.next()); // Freund@hioklm
-               String[] tableau = scan.next().split("XXX");
-               System.out.println("tableau de string: " + tableau );
+            // System.out.println("fis: " + fis);
 
-              // arr.add(scan.next());
-                //arr.add(new Freund(scan.next(), scan.next(), scan.next(), scan.nextInt(), scan.nextInt(), scan.next(), scan.next()));
+            Scanner scan = new Scanner(fis);
+            scan.useDelimiter("\\s");
+
+            while (scan.hasNext()) {
+                String buffer = scan.next();
+                System.out.println("scannext: " + buffer); // Freund@hioklm
+                String[] tableau = buffer.split(":");
+                for (int i = 0; i < tableau.length; i++) {
+                    System.out.println("Yey: " + tableau[i]);
+                }
+
+                // // arr.add(new Freund(scan.next(), scan.next(), scan.next(), scan.nextInt(),
+                // // scan.nextInt(), scan.next(), scan.next()));
+                // }
+                fis.close();
             }
-            fis.close();
         }
     }
-
 
     private ArrayList<Freund> arr = new ArrayList<Freund>();
     // private Vector<Freund> arr = new Vector<Freund>();
@@ -103,7 +109,7 @@ public class Kartei {
         PrintStream out = new PrintStream(new FileOutputStream(dateiName));
         System.out.println("Arr: " + arr);
         for (Freund element : arr) {
-            out.println(element + " :");
+            out.println(element);
         }
         out.close();
     }
@@ -133,7 +139,8 @@ public class Kartei {
         String schluessel = UUID.randomUUID().toString();
         Freund f1 = new Freund(vorname, nachname, geburtstag, telefon, handy, adresse, schluessel);
         arr.add(f1);
-        //System.out.println("arr to string: " + arr.toString()); //prints [Freund@531d72ca]
+        // System.out.println("arr to string: " + arr.toString()); //prints
+        // [Freund@531d72ca]
         bestand++;
         System.out.println("Der Freund " + vorname + " " + nachname + " wurde in der Kartei angelegt.");
         auswahlAnzeigen();
