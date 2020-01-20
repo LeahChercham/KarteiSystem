@@ -5,9 +5,10 @@ Version 1.0
 Author: Leah Chercham
 */
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
-import java.util.Vector;
+// import java.util.Vector;
 
 public class Kartei {
     private int bestand = 0;
@@ -83,15 +84,20 @@ public class Kartei {
             scan.useDelimiter("\\s:");
 
             while(scan.hasNext()){
-               System.out.println("scannext: " + scan.next());
-               scan.next();
-                // arr.add(new Freund(scan.next(), scan.next(), scan.next(), scan.nextInt(), scan.nextInt(), scan.next(), scan.next()));
+               System.out.println("scannext: " + scan.next()); // Freund@hioklm
+               String[] tableau = scan.next().split("XXX");
+               System.out.println("tableau de string: " + tableau );
+
+              // arr.add(scan.next());
+                //arr.add(new Freund(scan.next(), scan.next(), scan.next(), scan.nextInt(), scan.nextInt(), scan.next(), scan.next()));
             }
             fis.close();
         }
     }
 
-    private Vector<Freund> arr = new Vector<Freund>();
+
+    private ArrayList<Freund> arr = new ArrayList<Freund>();
+    // private Vector<Freund> arr = new Vector<Freund>();
 
     public void datenSpeichern(String dateiName) throws Exception {
         PrintStream out = new PrintStream(new FileOutputStream(dateiName));
@@ -127,6 +133,7 @@ public class Kartei {
         String schluessel = UUID.randomUUID().toString();
         Freund f1 = new Freund(vorname, nachname, geburtstag, telefon, handy, adresse, schluessel);
         arr.add(f1);
+        //System.out.println("arr to string: " + arr.toString()); //prints [Freund@531d72ca]
         bestand++;
         System.out.println("Der Freund " + vorname + " " + nachname + " wurde in der Kartei angelegt.");
         auswahlAnzeigen();

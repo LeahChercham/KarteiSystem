@@ -59,6 +59,9 @@ public class Freund {
         return schluessel;
     }
 
+    public String toString(){
+        return vorname + "XXX" + nachname + "XXX" + geburtstag + "XXX" + handy + "XXX" + telefon + "XXX" + adresse + "XXX" + schluessel;
+    }
 
     public Freund(String vorname, String nachname, String geburtstag, int telefon, int handy, String adresse,
             String schluessel)
@@ -71,4 +74,8 @@ public class Freund {
         this.adresse = adresse;
         this.schluessel = schluessel;
     }
+
+    // public Freund(){
+// constructeur de base pour utiliser setter tout a lheure pour pvr changer
+    // }
 }
