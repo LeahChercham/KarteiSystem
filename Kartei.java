@@ -5,6 +5,7 @@ Version 1.0
 Author: Leah Chercham
 */
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 import java.util.Vector;
@@ -16,17 +17,21 @@ public class Kartei {
         File file = new File(dateiName);
         if (file.exists()) {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(dateiName));
+            
+            System.out.println("ois: " + ois);
+            System.out.println("ois.readobj: " + ois.readObject());
 
+            
             // Scanner sur ois ?
-            Scanner scan = new Scanner(ois);
-            scan.useDelimiter("\\s:");
+            // Scanner scan = new Scanner(ois);
+            // scan.useDelimiter("\\s:");
 
-            while (scan.hasNext()) {
-                Freund f = (Freund) ois.readObject();
-                System.out.println("scannext: " + f);
-                scan.next();
-            }
-            ois.close();
+            // while (scan.hasNext()) {
+            //     Freund f = (Freund) ois.readObject();
+            //     System.out.println("scannext: " + f);
+            //     scan.next();
+            // }
+            // ois.close();
         }
     }
 
