@@ -1,17 +1,19 @@
+import java.io.Serializable;
+
 /*
 Die Klasse Freund verwaltet Freundesdaten
 Version 1.0
 Author: Leah Chercham
 */
 
-public class Freund {
+public class Freund implements Serializable {
     private String vorname;
     private String nachname;
     private String geburtstag;
     private int telefon;
     private int handy;
     private String adresse; // Als Klasse ? Braucht PLZ Ort und Str.
-    private String schluessel; // eindeutige identifizierung
+    private String schluessel; // eindeutige identifizierung mit stringified UUID
     
     public Freund(String vorname, String nachname, String geburtstag, int telefon, int handy, String adresse,
     String schluessel)
@@ -23,6 +25,10 @@ public class Freund {
         this.handy = handy;
         this.adresse = adresse;
         this.schluessel = schluessel;
+    }
+
+    public String toString(){
+        return vorname + " " + nachname + " "  + geburtstag + " " + telefon + " " + handy + " " + adresse + " " + schluessel;
     }
     
     // ============================== Plus bas pas important
