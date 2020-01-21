@@ -1,6 +1,3 @@
-
-import java.util.Vector;
-
 /*
 Die Klasse Freund verwaltet Freundesdaten
 Version 1.0
@@ -15,53 +12,9 @@ public class Freund {
     private int handy;
     private String adresse; // Als Klasse ? Braucht PLZ Ort und Str.
     private String schluessel; // eindeutige identifizierung
-
-    // vector: growable array
-
-
-    // public String getFreund() {
-    //     // return Friend infos
-    //     return "jaja";
-    // }
-
-    // 2 Methoden um Vor und Nachname zu setzen / vielleicht für änderungen benutzen.
-    // public void setVorname(String n) {
-    //     vorname = n;
-    // }
-
-    // public void setNachname(String n) {
-    //     nachname = n;
-    // }
-
-    public String getName() {
-        return (vorname + " " + nachname);
-    }
-
-    public String getVorname(){
-        return vorname;
-    }
-    public String getNachname(){
-        return nachname;
-    }
-    public String getGeburtstag(){
-        return geburtstag;
-    }
-    public int getHandy(){
-        return handy;
-    }
-    public int getTelefon(){
-        return telefon;
-    }
-    public String getAdresse(){
-        return adresse;
-    }
-    public String getSchluessel(){
-        return schluessel;
-    }
-
-
+    
     public Freund(String vorname, String nachname, String geburtstag, int telefon, int handy, String adresse,
-            String schluessel)
+    String schluessel)
     {
         this.vorname = vorname;
         this.nachname = nachname;
@@ -71,4 +24,41 @@ public class Freund {
         this.adresse = adresse;
         this.schluessel = schluessel;
     }
+    
+    // ============================== Plus bas pas important
+    
+        // 2 Methoden um Vor und Nachname zu setzen / vielleicht für änderungen benutzen.
+        // public void setVorname(String n) {
+        //     vorname = n;
+        // }
+    
+        // public void setNachname(String n) {
+        //     nachname = n;
+        // }
+    
+        public String getName() {
+            return (vorname + " " + nachname);
+        }
+    
+        public String getVorname(){
+            return vorname;
+        }
+        public String getNachname(){
+            return nachname;
+        }
+        public String getGeburtstag(){
+            return geburtstag;
+        }
+        public int getHandy(){
+            return handy;
+        }
+        public int getTelefon(){
+            return telefon;
+        }
+        public String getAdresse(){
+            return adresse;
+        }
+        public String getSchluessel(){
+            return schluessel;
+        }
 }
