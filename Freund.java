@@ -27,9 +27,9 @@ public class Freund implements Serializable {
         this.schluessel = schluessel;
     }
 
-    public String toString(){
-        return vorname + " " + nachname + " "  + geburtstag + " " + telefon + " " + handy + " " + adresse + " " + schluessel;
-    }
+    // public String toString(){
+    //     return vorname + " " + nachname + " "  + geburtstag + " " + telefon + " " + handy + " " + adresse + " " + schluessel;
+    // }
     
     // ============================== Plus bas pas important
     

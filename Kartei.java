@@ -17,38 +17,44 @@ public class Kartei {
         File file = new File(dateiName);
         if (file.exists()) {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(dateiName));
-            
+
             System.out.println("ois: " + ois);
             System.out.println("ois.readobj: " + ois.readObject());
 
-            
             // Scanner sur ois ?
             // Scanner scan = new Scanner(ois);
             // scan.useDelimiter("\\s:");
 
             // while (scan.hasNext()) {
-            //     Freund f = (Freund) ois.readObject();
-            //     System.out.println("scannext: " + f);
-            //     scan.next();
+            // Freund f = (Freund) ois.readObject();
+            // System.out.println("scannext: " + f);
+            // scan.next();
             // }
             // ois.close();
         }
     }
 
     // vecteur définis ici
-    private Vector<Freund> arr = new Vector<Freund>();
+    // private Vector<Freund> arr = new Vector<Freund>();
 
-    public void datenSpeichern(String dateiName) throws Exception {
-        // Serialization
-        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(dateiName));
-        System.out.println("Arr: " + arr);
-        for (Freund element : arr) {
-            out.writeObject(element);
-        }
+    // public void datenSpeichern(String dateiName) throws Exception {
+    // // Serialization
+    // ObjectOutputStream out = new ObjectOutputStream(new
+    // FileOutputStream(dateiName));
+    // System.out.println("Arr: " + arr);
+    // for (Freund element : arr) {
+    // out.writeObject(element);
+    // }
+    // out.close();
+    // }
+
+    private void freundSpeichern(Freund freund) throws Exception {
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Freunde.txt"));
+        out.writeObject(freund);
         out.close();
     }
 
-    private void freundAnlegen() {
+    private void freundAnlegen() throws Exception {
         Scanner eingabe = new Scanner(System.in);
 
         System.out.print("Vorname eingeben: ");
@@ -68,13 +74,21 @@ public class Kartei {
 
         // C'est ici que je crée mon instance d'ami
         Freund f1 = new Freund(vorname, nachname, geburtstag, telefon, handy, adresse, schluessel);
-        // j'ajoute au vecteur
-        arr.add(f1);
+
+        freundSpeichern(f1);
+        // // j'ajoute au vecteur
+        // arr.add(f1);
         bestand++;
         System.out.println("Der Freund " + vorname + " " + nachname + " wurde in der Kartei angelegt.");
         auswahlAnzeigen();
     }
 
+    private void freundeAnzeigen() throws IOException, ClassNotFoundException {
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Freunde.txt"));
+        Scanner in = new Scanner(ois);
+        Freund p = (Freund) ois.readObject();
+        System.out.println("Read Name: " + p.getName());
+    }
     // ============================== Plus bas pas important
 
     public static void main(String[] args) throws Exception {
@@ -83,27 +97,28 @@ public class Kartei {
         if (args.length == 1) {
             kartei = new Kartei(args[0]);
             kartei.auswahlAnzeigen();
-            kartei.datenSpeichern(args[0]);
+            // kartei.datenSpeichern(args[0]);
         } else {
-            System.out.println("Aufruf mit: java Kartei Dateiname.txt");
+            System.out.println("Aufruf mit: java Kartei Freunde.txt");
         }
 
     }
 
     // Die Methode auswahlAnzeigen zeigt eine Auswahl an
-    private void auswahlAnzeigen() {
+    private void auswahlAnzeigen() throws Exception {
         System.out.println("Bitte Zahl und dann RETURN eingeben:");
         System.out.println("<1> Freund anlegen");
         System.out.println("<2> Freund suchen");
         System.out.println("<3> Freund veraendern");
         System.out.println("<4> Freund loeschen");
         System.out.println("<5> Anzahl gespeicherter Freunde angeben");
-        System.out.println("<6> Beenden");
+        System.out.println("<6> Alle Freunde anzeigen");
+        System.out.println("<7> Beenden");
         auswahlAuswerten();
     }
 
     // Die Methode auswahlAuswerten wertet die Eingabe des Anwenders aus
-    private void auswahlAuswerten() {
+    private void auswahlAuswerten() throws Exception {
         Scanner input = new Scanner(System.in); // Never closed ?
         int auswahl = input.nextInt();
         input.nextLine(); // Zeilenumbruch einlesen
@@ -129,6 +144,10 @@ public class Kartei {
             break;
         }
         case 6: {
+            freundeAnzeigen();
+            break;
+        }
+        case 7: {
             // Hier Sachen speichern weil hier der einzige Ort zum Beenden des Programms
             // sein soll. Alle anderen rufen auswahl anzeigen wieder auf
             // das sollte in einer anderen Klasse sein zum Beispiel Verwaltung
@@ -145,7 +164,7 @@ public class Kartei {
      * nach Freund.java verschieben. Oder ich erstelle eine dritte Klasse zur
      * verwaltung
      */
-    private void bestandAbfragen() {
+    private void bestandAbfragen() throws Exception {
         System.out.println("Du hast " + bestand + " Freunde in deiner Kartei.");
         auswahlAnzeigen();
     }
