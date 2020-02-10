@@ -49,7 +49,7 @@ public class Kartei {
     // }
 
     private void freundSpeichern(Freund freund) throws Exception {
-        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Freunde.txt"));
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Freunde.txt", true));
         out.writeObject(freund);
         out.close();
     }
@@ -86,8 +86,10 @@ public class Kartei {
     private void freundeAnzeigen() throws IOException, ClassNotFoundException {
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Freunde.txt"));
         Scanner in = new Scanner(ois);
-        Freund p = (Freund) ois.readObject();
-        System.out.println("Read Name: " + p.getName());
+        // while(in.hasNextLine()){
+            Freund p = (Freund) ois.readObject();
+            System.out.println("Read Name: " + p.getName());
+        // }
     }
     // ============================== Plus bas pas important
 
