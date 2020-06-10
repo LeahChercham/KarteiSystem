@@ -49,8 +49,11 @@ public class Kartei {
     // }
 
     private void freundSpeichern(Freund freund) throws Exception {
-        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Freunde.txt", true));
+        // https://stackoverflow.com/questions/11661376/how-to-save-and-load-a-array-in-java
+
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Freunde.ser", true));
         out.writeObject(freund);
+        out.flush();
         out.close();
     }
 
@@ -75,7 +78,10 @@ public class Kartei {
         // C'est ici que je crée mon instance d'ami
         Freund f1 = new Freund(vorname, nachname, geburtstag, telefon, handy, adresse, schluessel);
 
-        freundSpeichern(f1);
+        // Add to Array
+        // ?????
+
+        freundSpeichern(f1); // Array instead of friend
         // // j'ajoute au vecteur
         // arr.add(f1);
         bestand++;
@@ -84,11 +90,10 @@ public class Kartei {
     }
 
     private void freundeAnzeigen() throws IOException, ClassNotFoundException {
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Freunde.txt"));
-        Scanner in = new Scanner(ois);
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream("Freunde.ser"));
         // while(in.hasNextLine()){
-            Freund p = (Freund) ois.readObject();
-            System.out.println("Read Name: " + p.getName());
+        Freund p = (Freund) in.readObject();
+        System.out.println("Read Name: " + p.getName());
         // }
     }
     // ============================== Plus bas pas important
@@ -101,7 +106,7 @@ public class Kartei {
             kartei.auswahlAnzeigen();
             // kartei.datenSpeichern(args[0]);
         } else {
-            System.out.println("Aufruf mit: java Kartei Freunde.txt");
+            System.out.println("Aufruf mit: java Kartei Freunde.ser");
         }
 
     }
@@ -127,36 +132,38 @@ public class Kartei {
         // input.close();
 
         switch (auswahl) {
-        case 1: {
-            freundAnlegen();
-            break;
-        }
-        // Other functions to be made
-        case 2: {
-            break;
-        }
-        case 3: {
-            break;
-        }
-        case 4: {
-            break;
-        }
-        case 5: {
-            bestandAbfragen();
-            break;
-        }
-        case 6: {
-            freundeAnzeigen();
-            break;
-        }
-        case 7: {
-            // Hier Sachen speichern weil hier der einzige Ort zum Beenden des Programms
-            // sein soll. Alle anderen rufen auswahl anzeigen wieder auf
-            // das sollte in einer anderen Klasse sein zum Beispiel Verwaltung
-            break;
-        }
-        default:
-            System.out.println("Falsche Eingabe");
+            case 1: {
+                freundAnlegen();
+                break;
+            }
+            // Other functions to be made
+            case 2: {
+                freundeAnzeigen();
+                break;
+            
+            }
+            case 3: {
+                break;
+            }
+            case 4: {
+                break;
+            }
+            case 5: {
+                bestandAbfragen();
+                break;
+            }
+            case 6: {
+                freundeAnzeigen();
+                break;
+            }
+            case 7: {
+                // Hier Sachen speichern weil hier der einzige Ort zum Beenden des Programms
+                // sein soll. Alle anderen rufen auswahl anzeigen wieder auf
+                // das sollte in einer anderen Klasse sein zum Beispiel Verwaltung
+                break;
+            }
+            default:
+                System.out.println("Falsche Eingabe");
         }
     }
 
