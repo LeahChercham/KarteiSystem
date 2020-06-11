@@ -28,12 +28,7 @@ public class Kartei {
 
 
     private void freundSpeichern(Freund freund) throws Exception {
-        // https://stackoverflow.com/questions/11661376/how-to-save-and-load-a-array-in-java
-        // https://codereview.stackexchange.com/questions/98135/address-book-in-java
-        // Use COLLECTIONS instead or Array List
         friendsArray.add(freund);
-        // ObjectOutputStream out = new ObjectOutputStream(new
-        // FileOutputStream("Freunde.ser", true));
         FileOutputStream fos = new FileOutputStream("friends.tmp");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(friendsArray);
@@ -64,7 +59,6 @@ public class Kartei {
 
         freundSpeichern(f1); // Array instead of friend
 
-        bestand++;
         System.out.println("Der Freund " + vorname + " " + nachname + " wurde in der Kartei angelegt.");
         auswahlAnzeigen();
     }
@@ -149,6 +143,10 @@ public class Kartei {
     }
 
     private void bestandAbfragen() throws Exception {
+        FileInputStream fis = new FileInputStream("friends.tmp");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        ArrayList<Freund> friends = (ArrayList<Freund>) ois.readObject();
+        bestand = friends.size();
         System.out.println("Du hast " + bestand + " Freunde in deiner Kartei.");
         auswahlAnzeigen();
     }
