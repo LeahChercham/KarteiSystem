@@ -73,8 +73,19 @@ public class Kartei {
         ois.close();
     }
 
-    private void freundFinden() throws IOException, ClassNotFoundException {
+    private void freundFinden(String eingabe) throws IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream("friends.tmp");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        ArrayList<Freund> friends = (ArrayList<Freund>) ois.readObject();
+        ois.close();
 
+        friends.forEach(friend -> {
+            if (friend.getName().toUpperCase().contains(eingabe.toUpperCase())) {
+                System.out.println("....................................");
+                System.out.println(friend.getName());
+                return;
+            }
+        });
     }
 
     private void freundVeraendern() throws IOException, ClassNotFoundException {
@@ -84,20 +95,27 @@ public class Kartei {
 
         Scanner input = new Scanner(System.in); // Never closed ?
         String eingabe = input.nextLine();
-        input.nextLine();
+        
+        freundFinden(eingabe);
 
-        FileInputStream fis = new FileInputStream("friends.tmp");
-        ObjectInputStream ois = new ObjectInputStream(fis);
-        ArrayList<Freund> friends = (ArrayList<Freund>) ois.readObject();
-        ois.close();
+        System.out.println("Moechtest du diesen Freund veraendern?");
+        System.out.println("<1> Ja");
+        System.out.println("<2> Nein");
 
-        friends.forEach(friend -> {
-            if (friend.getName().toUpperCase().contains(eingabe.toUpperCase())) {
-                System.out.println("....................................");
-                System.out.println("Moechtest du " + friend.getName() + " veraendern?");
-                System.out.println("....................................");
+        
+        int auswahl = input.nextInt();
+        input.close();
+
+        switch (auswahl) {
+            case 1: {
+                System.out.println("Du hast ja ausgewaehlt");
+                break;
             }
-        });
+            case 2: {
+                System.out.println("Du hast nein ausgewaehlt");
+                break;
+
+            }};
 
     }
     // ============================== Plus bas pas important
