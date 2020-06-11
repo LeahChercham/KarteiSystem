@@ -73,6 +73,10 @@ public class Kartei {
         ois.close();
     }
 
+    private void freundBearbeiten() throws IOException, ClassNotFoundException {
+
+    }
+
     private void freundFinden(String eingabe) throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream("friends.tmp");
         ObjectInputStream ois = new ObjectInputStream(fis);
@@ -88,7 +92,7 @@ public class Kartei {
         });
     }
 
-    private void freundVeraendern() throws IOException, ClassNotFoundException {
+    private void auswahlFreundVeraendern() throws IOException, ClassNotFoundException {
         System.out.println("....................................");
         System.out.println("Bitte Namen eingeben und dann RETURN eingeben");
         System.out.println("....................................");
@@ -108,7 +112,7 @@ public class Kartei {
 
         switch (auswahl) {
             case 1: {
-                System.out.println("Du hast ja ausgewaehlt");
+                freundBearbeiten();
                 break;
             }
             case 2: {
@@ -167,7 +171,7 @@ public class Kartei {
 
             }
             case 3: {
-                freundVeraendern();
+                auswahlFreundVeraendern();
                 break;
             }
             case 4: {
