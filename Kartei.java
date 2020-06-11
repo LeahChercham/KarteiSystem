@@ -67,8 +67,10 @@ public class Kartei {
         FileInputStream fis = new FileInputStream("friends.tmp");
         ObjectInputStream ois = new ObjectInputStream(fis);
         ArrayList<Freund> friends = (ArrayList<Freund>) ois.readObject();
+        System.out.println("....................................");
         System.out.println("All your friends:");
         friends.forEach(friend -> System.out.println(friend.getName()));
+        System.out.println("....................................");
         ois.close();
     }
     // ============================== Plus bas pas important
@@ -81,7 +83,9 @@ public class Kartei {
             kartei.auswahlAnzeigen();
             // kartei.datenSpeichern(args[0]);
         } else {
+            System.out.println("....................................");
             System.out.println("Aufruf mit: java Kartei friends.tmp");
+            System.out.println("....................................");
         }
 
     }
@@ -138,7 +142,9 @@ public class Kartei {
                 break;
             }
             default:
+            System.out.println("....................................");
                 System.out.println("Falsche Eingabe");
+                System.out.println("....................................");
         }
     }
 
@@ -147,7 +153,10 @@ public class Kartei {
         ObjectInputStream ois = new ObjectInputStream(fis);
         ArrayList<Freund> friends = (ArrayList<Freund>) ois.readObject();
         bestand = friends.size();
+        
+        System.out.println("....................................");
         System.out.println("Du hast " + bestand + " Freunde in deiner Kartei.");
+        System.out.println("....................................");
         auswahlAnzeigen();
     }
 
