@@ -8,7 +8,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
-import java.util.Vector;
+
 
 public class Kartei {
     private int bestand = 0;
@@ -20,35 +20,12 @@ public class Kartei {
 
             System.out.println("ois: " + ois);
             System.out.println("ois.readobj: " + ois.readObject());
-
-            // Scanner sur ois ?
-            // Scanner scan = new Scanner(ois);
-            // scan.useDelimiter("\\s:");
-
-            // while (scan.hasNext()) {
-            // Freund f = (Freund) ois.readObject();
-            // System.out.println("scannext: " + f);
-            // scan.next();
-            // }
-            // ois.close();
         }
     }
 
     // arrayList with initial capacity 100
     private ArrayList<Freund> friendsArray = new ArrayList<Freund>(100);
-    // vecteur définis ici
-    // private Vector<Freund> arr = new Vector<Freund>();
 
-    // public void datenSpeichern(String dateiName) throws Exception {
-    // // Serialization
-    // ObjectOutputStream out = new ObjectOutputStream(new
-    // FileOutputStream(dateiName));
-    // System.out.println("Arr: " + arr);
-    // for (Freund element : arr) {
-    // out.writeObject(element);
-    // }
-    // out.close();
-    // }
 
     private void freundSpeichern(Freund freund) throws Exception {
         // https://stackoverflow.com/questions/11661376/how-to-save-and-load-a-array-in-java
@@ -171,12 +148,6 @@ public class Kartei {
         }
     }
 
-    /*
-     * Jetzt habe ich den Vector Freund in dieser Klasse. Eigentlich sollte er in
-     * der Freund Klasse sein. Ich könnte zum Beispiel die Funktion freund anlegen
-     * nach Freund.java verschieben. Oder ich erstelle eine dritte Klasse zur
-     * verwaltung
-     */
     private void bestandAbfragen() throws Exception {
         System.out.println("Du hast " + bestand + " Freunde in deiner Kartei.");
         auswahlAnzeigen();
