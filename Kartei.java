@@ -96,8 +96,8 @@ public class Kartei {
         FileInputStream fis = new FileInputStream("friends.tmp");
         ObjectInputStream ois = new ObjectInputStream(fis);
         ArrayList<Freund> friends = (ArrayList<Freund>) ois.readObject();
-        System.out.println(friends.get(0).getNachname()); 
-        System.out.println(friends.get(1).getNachname()); 
+        System.out.println("All your friends:");
+        friends.forEach(friend -> System.out.println(friend.getName()));
         ois.close();
     }
     // ============================== Plus bas pas important
