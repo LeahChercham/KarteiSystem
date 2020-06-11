@@ -58,8 +58,9 @@ public class Kartei {
         Freund f1 = new Freund(vorname, nachname, geburtstag, telefon, handy, adresse, schluessel);
 
         freundSpeichern(f1); // Array instead of friend
-
+        System.out.println("....................................");
         System.out.println("Der Freund " + vorname + " " + nachname + " wurde in der Kartei angelegt.");
+        System.out.println("....................................");
         auswahlAnzeigen();
     }
 
