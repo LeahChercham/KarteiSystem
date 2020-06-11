@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
-
 public class Kartei {
     private int bestand = 0;
 
@@ -25,7 +24,6 @@ public class Kartei {
 
     // arrayList with initial capacity 100
     private ArrayList<Freund> friendsArray = new ArrayList<Freund>(100);
-
 
     private void freundSpeichern(Freund freund) throws Exception {
         friendsArray.add(freund);
@@ -73,6 +71,34 @@ public class Kartei {
         friends.forEach(friend -> System.out.println(friend.getName()));
         System.out.println("....................................");
         ois.close();
+    }
+
+    private void freundFinden() throws IOException, ClassNotFoundException {
+
+    }
+
+    private void freundVeraendern() throws IOException, ClassNotFoundException {
+        System.out.println("....................................");
+        System.out.println("Bitte Namen eingeben und dann RETURN eingeben");
+        System.out.println("....................................");
+
+        Scanner input = new Scanner(System.in); // Never closed ?
+        String eingabe = input.nextLine();
+        input.nextLine();
+
+        FileInputStream fis = new FileInputStream("friends.tmp");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        ArrayList<Freund> friends = (ArrayList<Freund>) ois.readObject();
+        ois.close();
+
+        friends.forEach(friend -> {
+            if (friend.getName().toUpperCase().contains(eingabe.toUpperCase())) {
+                System.out.println("....................................");
+                System.out.println("Moechtest du " + friend.getName() + " veraendern?");
+                System.out.println("....................................");
+            }
+        });
+
     }
     // ============================== Plus bas pas important
 
@@ -123,6 +149,7 @@ public class Kartei {
 
             }
             case 3: {
+                freundVeraendern();
                 break;
             }
             case 4: {
@@ -143,7 +170,7 @@ public class Kartei {
                 break;
             }
             default:
-            System.out.println("....................................");
+                System.out.println("....................................");
                 System.out.println("Falsche Eingabe");
                 System.out.println("....................................");
         }
@@ -154,7 +181,7 @@ public class Kartei {
         ObjectInputStream ois = new ObjectInputStream(fis);
         ArrayList<Freund> friends = (ArrayList<Freund>) ois.readObject();
         bestand = friends.size();
-        
+
         System.out.println("....................................");
         System.out.println("Du hast " + bestand + " Freunde in deiner Kartei.");
         System.out.println("....................................");
