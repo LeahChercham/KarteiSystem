@@ -34,6 +34,8 @@ public class Kartei {
         }
     }
 
+    // arrayList with initial capacity 100
+    private ArrayList<Freund> friendsArray = new ArrayList<Freund>(100);
     // vecteur définis ici
     // private Vector<Freund> arr = new Vector<Freund>();
 
@@ -50,11 +52,16 @@ public class Kartei {
 
     private void freundSpeichern(Freund freund) throws Exception {
         // https://stackoverflow.com/questions/11661376/how-to-save-and-load-a-array-in-java
-
-        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Freunde.ser", true));
-        out.writeObject(freund);
-        out.flush();
-        out.close();
+        // https://codereview.stackexchange.com/questions/98135/address-book-in-java
+        // Use COLLECTIONS instead or Array List
+        friendsArray.add(freund);
+        // ObjectOutputStream out = new ObjectOutputStream(new
+        // FileOutputStream("Freunde.ser", true));
+        FileOutputStream fos = new FileOutputStream("friends.tmp");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(friendsArray);
+        oos.flush();
+        oos.close();
     }
 
     private void freundAnlegen() throws Exception {
@@ -78,23 +85,20 @@ public class Kartei {
         // C'est ici que je crée mon instance d'ami
         Freund f1 = new Freund(vorname, nachname, geburtstag, telefon, handy, adresse, schluessel);
 
-        // Add to Array
-        // ?????
-
         freundSpeichern(f1); // Array instead of friend
-        // // j'ajoute au vecteur
-        // arr.add(f1);
+
         bestand++;
         System.out.println("Der Freund " + vorname + " " + nachname + " wurde in der Kartei angelegt.");
         auswahlAnzeigen();
     }
 
     private void freundeAnzeigen() throws IOException, ClassNotFoundException {
-        ObjectInputStream in = new ObjectInputStream(new FileInputStream("Freunde.ser"));
-        // while(in.hasNextLine()){
-        Freund p = (Freund) in.readObject();
-        System.out.println("Read Name: " + p.getName());
-        // }
+        FileInputStream fis = new FileInputStream("friends.tmp");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        ArrayList<Freund> friends = (ArrayList<Freund>) ois.readObject();
+        System.out.println(friends.get(0).getNachname()); 
+        System.out.println(friends.get(1).getNachname()); 
+        ois.close();
     }
     // ============================== Plus bas pas important
 
@@ -106,7 +110,7 @@ public class Kartei {
             kartei.auswahlAnzeigen();
             // kartei.datenSpeichern(args[0]);
         } else {
-            System.out.println("Aufruf mit: java Kartei Freunde.ser");
+            System.out.println("Aufruf mit: java Kartei friends.tmp");
         }
 
     }
@@ -140,7 +144,7 @@ public class Kartei {
             case 2: {
                 freundeAnzeigen();
                 break;
-            
+
             }
             case 3: {
                 break;
