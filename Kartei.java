@@ -62,7 +62,7 @@ public class Kartei {
         auswahlAnzeigen();
     }
 
-    private void freundeAnzeigen() throws IOException, ClassNotFoundException {
+    private void freundeAnzeigen() throws Exception {
         FileInputStream fis = new FileInputStream("friends.tmp");
         ObjectInputStream ois = new ObjectInputStream(fis);
         ArrayList<Freund> friends = (ArrayList<Freund>) ois.readObject();
@@ -71,13 +71,15 @@ public class Kartei {
         friends.forEach(friend -> System.out.println(friend.getName()));
         System.out.println("....................................");
         ois.close();
+        auswahlAnzeigen();
     }
 
     private void freundBearbeiten() throws IOException, ClassNotFoundException {
-
+        System.out.println("....................................");
+        System.out.println("Du wirst deinen Freund veraendern!");
     }
 
-    private void freundFinden(String eingabe) throws IOException, ClassNotFoundException {
+    private void freundFinden(String eingabe) throws Exception {
         FileInputStream fis = new FileInputStream("friends.tmp");
         ObjectInputStream ois = new ObjectInputStream(fis);
         ArrayList<Freund> friends = (ArrayList<Freund>) ois.readObject();
@@ -92,21 +94,20 @@ public class Kartei {
         });
     }
 
-    private void auswahlFreundVeraendern() throws IOException, ClassNotFoundException {
+    private void auswahlFreundVeraendern() throws Exception {
         System.out.println("....................................");
         System.out.println("Bitte Namen eingeben und dann RETURN eingeben");
         System.out.println("....................................");
 
         Scanner input = new Scanner(System.in); // Never closed ?
         String eingabe = input.nextLine();
-        
+
         freundFinden(eingabe);
 
         System.out.println("Moechtest du diesen Freund veraendern?");
         System.out.println("<1> Ja");
         System.out.println("<2> Nein");
 
-        
         int auswahl = input.nextInt();
         input.close();
 
@@ -119,8 +120,10 @@ public class Kartei {
                 System.out.println("Du hast nein ausgewaehlt");
                 break;
 
-            }};
-
+            }
+        }
+        ;
+        auswahlAnzeigen();
     }
     // ============================== Plus bas pas important
 
