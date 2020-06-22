@@ -206,6 +206,7 @@ public class Kartei {
                 System.out.println("....................................");
                 System.out.println("Falsche Eingabe");
                 System.out.println("....................................");
+                auswahlAnzeigen();
         }
     }
 
