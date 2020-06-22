@@ -74,9 +74,10 @@ public class Kartei {
         auswahlAnzeigen();
     }
 
-    private void freundBearbeiten() throws IOException, ClassNotFoundException {
+    private void freundBearbeiten() throws Exception {
         System.out.println("....................................");
         System.out.println("Du wirst deinen Freund veraendern!");
+        auswahlAnzeigen();
     }
 
     private void freundFinden(String eingabe) throws Exception {
@@ -85,13 +86,18 @@ public class Kartei {
         ArrayList<Freund> friends = (ArrayList<Freund>) ois.readObject();
         ois.close();
 
-        friends.forEach(friend -> {
-            if (friend.getName().toUpperCase().contains(eingabe.toUpperCase())) {
-                System.out.println("....................................");
-                System.out.println(friend.getName());
-                return;
-            }
-        });
+        Freund foundFriend;
+
+        // ArrayList <Freund> filteredFriends = friends.filter()
+        // friends.get()
+        // friends.forEach(friend -> {
+        //     if (friend.getName().toUpperCase().contains(eingabe.toUpperCase())) {
+        //         System.out.println("....................................");
+        //         System.out.println(friend.getName());
+        //         foundFriend = friend;
+        //     }
+        // });
+        // return foundFriend;
     }
 
     private void auswahlFreundVeraendern() throws Exception {
@@ -102,27 +108,29 @@ public class Kartei {
         Scanner input = new Scanner(System.in); // Never closed ?
         String eingabe = input.nextLine();
 
-        freundFinden(eingabe);
+        freundFinden(eingabe); // sollte freund returnen
 
         System.out.println("Moechtest du diesen Freund veraendern?");
         System.out.println("<1> Ja");
         System.out.println("<2> Nein");
 
-        int auswahl = input.nextInt();
-        input.close();
+        if (input.hasNextInt()) {
+            String auswahl = input.next();
+            switch (auswahl) {
+                case "1": {
+                    freundBearbeiten();
+                    break;
+                }
+                case "2": {
+                    System.out.println("Du hast nein ausgewaehlt");
+                    break;
 
-        switch (auswahl) {
-            case 1: {
-                freundBearbeiten();
-                break;
+                }
             }
-            case 2: {
-                System.out.println("Du hast nein ausgewaehlt");
-                break;
-
-            }
+            input.close();
         }
-        ;
+
+        
         auswahlAnzeigen();
     }
     // ============================== Plus bas pas important
