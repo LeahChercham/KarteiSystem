@@ -26,6 +26,11 @@ public class Kartei {
     private ArrayList<Freund> friendsArray = new ArrayList<Freund>(100);
 
     private void freundSpeichern(Freund freund) throws Exception {
+        FileInputStream fis = new FileInputStream("friends.tmp");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        // ArrayList<Freund> friends = (ArrayList<Freund>) ois.readObject();
+        friendsArray = (ArrayList<Freund>) ois.readObject();
+
         friendsArray.add(freund);
         FileOutputStream fos = new FileOutputStream("friends.tmp");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -36,10 +41,8 @@ public class Kartei {
 
     private void freundAnlegen() throws Exception {
         Scanner eingabe = new Scanner(System.in);
-
         System.out.print("Vorname eingeben: ");
         String vorname = eingabe.next();
-
         System.out.print("Nachname eingeben: ");
         String nachname = eingabe.next();
         System.out.print("Geburtstag eingeben: ");
@@ -91,11 +94,11 @@ public class Kartei {
         // ArrayList <Freund> filteredFriends = friends.filter()
         // friends.get()
         // friends.forEach(friend -> {
-        //     if (friend.getName().toUpperCase().contains(eingabe.toUpperCase())) {
-        //         System.out.println("....................................");
-        //         System.out.println(friend.getName());
-        //         foundFriend = friend;
-        //     }
+        // if (friend.getName().toUpperCase().contains(eingabe.toUpperCase())) {
+        // System.out.println("....................................");
+        // System.out.println(friend.getName());
+        // foundFriend = friend;
+        // }
         // });
         // return foundFriend;
     }
@@ -130,7 +133,6 @@ public class Kartei {
             input.close();
         }
 
-        
         auswahlAnzeigen();
     }
     // ============================== Plus bas pas important
