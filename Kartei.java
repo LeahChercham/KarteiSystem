@@ -5,6 +5,7 @@ Version 1.0
 Author: Leah Chercham
 */
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
@@ -88,8 +89,8 @@ public class Kartei {
         ObjectInputStream ois = new ObjectInputStream(fis);
         ArrayList<Freund> friends = (ArrayList<Freund>) ois.readObject();
         ois.close();
-
         Freund foundFriend;
+
 
         // ArrayList <Freund> filteredFriends = friends.filter()
         // friends.get()
