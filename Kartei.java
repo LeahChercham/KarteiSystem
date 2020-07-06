@@ -13,6 +13,7 @@ import java.util.UUID;
 public class Kartei {
     
 
+    // Friends Datei anlegen
     public Kartei(String dateiName) throws Exception {
         File file = new File(dateiName);
         if (file.exists()) {
@@ -30,6 +31,7 @@ public class Kartei {
     // Initial Array mit 100 Freunden
     Freund[] freunde = new Freund[100];
 
+    // Freund speichern in Datei
     private void freundSpeichern(Freund freund) throws Exception {
 
         // Error handler: falls File leer, nicht versuchen Daten zu ziehen
@@ -107,35 +109,47 @@ public class Kartei {
         auswahlAnzeigen();
     }
 
-    private void freundFinden(String eingabe) throws Exception {
+    private Freund freundFinden(String eingabe) throws Exception {
+        File file = new File("friends.tmp");
+        if (file.length() == 0) {
+            System.out.println("....................................");
+            System.out.println("Du hast noch keine Freunde hinterlegt");
+            System.out.println("....................................");
+            auswahlAnzeigen();
+        }
+
         FileInputStream fis = new FileInputStream("friends.tmp");
         ObjectInputStream ois = new ObjectInputStream(fis);
-        ArrayList<Freund> friends = (ArrayList<Freund>) ois.readObject();
-        ois.close();
-        Freund foundFriend;
+        freunde = (Freund[]) ois.readObject();
 
-        // ArrayList <Freund> filteredFriends = friends.filter()
-        // friends.get()
-        // friends.forEach(friend -> {
-        // if (friend.getName().toUpperCase().contains(eingabe.toUpperCase())) {
-        // System.out.println("....................................");
-        // System.out.println(friend.getName());
-        // foundFriend = friend;
-        // }
-        // });
-        // return foundFriend;
+        ois.close();
+        Freund foundFriend = null;
+
+        for (int i = 0; i < freunde.length; i++) {
+            if (freunde[i] != null) { // Findet leeren Eintrag und überschreibt ihn mit Freund
+                if(freunde[i].getName().toUpperCase().contains(eingabe.toUpperCase())){
+                    foundFriend = freunde[i];
+                }
+            }
+        }
+        return foundFriend;
     }
 
     private void auswahlFreundVeraendern() throws Exception {
         System.out.println("....................................");
-        System.out.println("Bitte Namen eingeben und dann RETURN eingeben");
+        System.out.println("Bitte Namen oder Vornamen eingeben und dann RETURN eingeben");
         System.out.println("....................................");
 
         Scanner input = new Scanner(System.in);
         String eingabe = input.nextLine();
 
-        freundFinden(eingabe); // sollte freund returnen
+        Freund foundFriend = freundFinden(eingabe); // sollte freund returnen
+        if(foundFriend == null){
+            System.out.println(eingabe + " wurde nicht gefunden.");
+            auswahlAnzeigen();
+        }
 
+        System.out.println("Wir haben diesen Freund gefunden: " + foundFriend.getName());
         System.out.println("Moechtest du diesen Freund veraendern?");
         System.out.println("<1> Ja");
         System.out.println("<2> Nein");
@@ -148,9 +162,8 @@ public class Kartei {
                     break;
                 }
                 case "2": {
-                    System.out.println("Du hast nein ausgewaehlt");
+                    auswahlAnzeigen();
                     break;
-
                 }
             }
             input.close();
