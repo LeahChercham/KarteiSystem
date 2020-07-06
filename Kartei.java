@@ -4,6 +4,17 @@ Die Klasse Kartei verwaltet die gesamten Freunde
 Version 1.0
 Author: Leah Chercham
 */
+
+
+/*
+Notes:
+
+- UML
+- Bearbeitung eines Objektes
+- mehrere Freunde finden + Auswählen können
+- Text schreiben
+*/
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
