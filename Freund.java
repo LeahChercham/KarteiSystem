@@ -42,10 +42,11 @@ public class Freund implements Serializable {
         //     nachname = n;
         // }
     
+
+
         public String getName() {
             return (vorname + " " + nachname);
         }
-    
         public String getVorname(){
             return vorname;
         }

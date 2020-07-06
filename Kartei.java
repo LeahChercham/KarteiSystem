@@ -135,6 +135,30 @@ public class Kartei {
         return foundFriend;
     }
 
+    private void freundSuchen() throws Exception{ // in AuswahlFreundVeraendern vielleicht implementieren (nicht doppelt code)
+        System.out.println("....................................");
+        System.out.println("Bitte Namen oder Vornamen eingeben und dann RETURN eingeben");
+        System.out.println("....................................");
+
+        Scanner input = new Scanner(System.in);
+        String eingabe = input.nextLine();
+
+        Freund foundFriend = freundFinden(eingabe);
+        if(foundFriend == null){
+            System.out.println(eingabe + " wurde nicht gefunden.");
+            auswahlAnzeigen();
+        }
+        System.out.println("....................................");
+        System.out.println("Name: "+foundFriend.getName());
+        System.out.println("Handy: "+foundFriend.getHandy());
+        System.out.println("Telefon: "+foundFriend.getTelefon());
+        System.out.println("Adresse: "+foundFriend.getAdresse());
+        System.out.println("Geburtstag: "+foundFriend.getGeburtstag());
+        System.out.println("Schluessel: "+foundFriend.getSchluessel());
+        System.out.println("....................................");
+
+    }
+
     private void auswahlFreundVeraendern() throws Exception {
         System.out.println("....................................");
         System.out.println("Bitte Namen oder Vornamen eingeben und dann RETURN eingeben");
@@ -220,7 +244,7 @@ public class Kartei {
             }
             // Other functions to be made
             case 2: {
-                freundeAnzeigen();
+                freundSuchen();
                 break;
 
             }
