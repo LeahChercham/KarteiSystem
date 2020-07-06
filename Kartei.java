@@ -5,13 +5,13 @@ Version 1.0
 Author: Leah Chercham
 */
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays; 
 import java.util.Scanner;
 import java.util.UUID;
 
 public class Kartei {
-    private int bestand = 0;
+    private int bestand; // übernimmt die Länge der Liste
 
     public Kartei( String dateiName) throws Exception {
         File file = new File(dateiName);
@@ -31,14 +31,27 @@ public class Kartei {
     Freund[] freunde = new Freund[100];
 
     private void freundSpeichern( Freund freund) throws Exception {
-        //  FileInputStream fis = new FileInputStream("friends.tmp");
-        //  ObjectInputStream ois = new ObjectInputStream(fis);
+        FileInputStream fis = new FileInputStream("friends.tmp");
+        ObjectInputStream ois = new ObjectInputStream(fis);
         // ArrayList<Freund> friends = (ArrayList<Freund>) ois.readObject();
         // friendsArray = (ArrayList<Freund>) ois.readObject();
-        // freunde = (Freund[]) ois.readObject();
+        freunde = (Freund[]) ois.readObject();
+        
+        for (int i = 0; i < freunde.length; i++) {
+            if(freunde[i] != null){ // Findet leeren Eintrag
+                System.out.println("Hier ist schon " + freunde[i].getName() + " at place " + i);
+            }
+            if(freunde[i] == null){ // Findet leeren Eintrag
+                freunde[i] = freund;
+                System.out.println("AHHHHHHHH" + freunde[i].getName() + "at place " + i);
+                break;
+            }
+          }
+
 
         // friendsArray.add(freund);
-        freunde[0] = freund;
+        // freunde[0] = freund; // hat immer den ersten überschrieben
+
 
          FileOutputStream fos = new FileOutputStream("friends.tmp");
          ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -83,7 +96,11 @@ public class Kartei {
         System.out.println("All your friends:");
         // freunde.forEach(friend -> System.out.println(friend.getName()));
         for (int i = 0; i < freunde.length; i++) {
-            System.out.println(freunde[i]);
+            if(freunde[i] != null){ // Zeigt nur tatsächliche Einträges
+                System.out.println(freunde[i].getName());
+            } else {
+                System.out.println(freunde[i]);
+            }
           }
 
         System.out.println("....................................");
