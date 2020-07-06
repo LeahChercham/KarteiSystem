@@ -6,17 +6,18 @@ Author: Leah Chercham
 */
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays; 
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.UUID;
 
 public class Kartei {
-    private int bestand; // übernimmt die Länge der Liste
+    
 
-    public Kartei( String dateiName) throws Exception {
+    public Kartei(String dateiName) throws Exception {
         File file = new File(dateiName);
         if (file.exists()) {
-            //  ObjectInputStream ois = new ObjectInputStream(new FileInputStream(dateiName));
+            // ObjectInputStream ois = new ObjectInputStream(new
+            // FileInputStream(dateiName));
 
             // System.out.println("ois: " + ois);
             // System.out.println("ois.readobj: " + ois.readObject());
@@ -29,48 +30,48 @@ public class Kartei {
     // Initial Array mit 100 Freunden
     Freund[] freunde = new Freund[100];
 
-    private void freundSpeichern( Freund freund) throws Exception {
+    private void freundSpeichern(Freund freund) throws Exception {
 
         // Error handler: falls File leer, nicht versuchen Daten zu ziehen
         File file = new File("friends.tmp");
-        if(file.length() != 0){
+        if (file.length() != 0) {
             FileInputStream fis = new FileInputStream("friends.tmp");
             ObjectInputStream ois = new ObjectInputStream(fis);
             freunde = (Freund[]) ois.readObject();
         }
-        
+
         for (int i = 0; i < freunde.length; i++) {
-            if(freunde[i] == null){ // Findet leeren Eintrag und überschreibt ihn mit Freund
+            if (freunde[i] == null) { // Findet leeren Eintrag und überschreibt ihn mit Freund
                 freunde[i] = freund;
                 break;
             }
         }
 
-         FileOutputStream fos = new FileOutputStream("friends.tmp");
-         ObjectOutputStream oos = new ObjectOutputStream(fos);
+        FileOutputStream fos = new FileOutputStream("friends.tmp");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(freunde);
         oos.flush();
         oos.close();
     }
 
     private void freundAnlegen() throws Exception {
-         Scanner eingabe = new Scanner(System.in);
+        Scanner eingabe = new Scanner(System.in);
         System.out.print("Vorname eingeben: ");
-         String vorname = eingabe.next();
+        String vorname = eingabe.next();
         System.out.print("Nachname eingeben: ");
-         String nachname = eingabe.next();
+        String nachname = eingabe.next();
         System.out.print("Geburtstag eingeben: ");
-         String geburtstag = eingabe.next();
+        String geburtstag = eingabe.next();
         System.out.print("Handy Nummer eingeben: ");
-         int handy = eingabe.nextInt();
+        int handy = eingabe.nextInt();
         System.out.print("Telefon Nummer eingeben: ");
-         int telefon = eingabe.nextInt();
+        int telefon = eingabe.nextInt();
         System.out.print("Adresse eingeben: ");
-         String adresse = eingabe.next();
-         String schluessel = UUID.randomUUID().toString();
+        String adresse = eingabe.next();
+        String schluessel = UUID.randomUUID().toString();
 
         // C'est ici que je crée mon instance d'ami
-         Freund f1 = new Freund(vorname, nachname, geburtstag, telefon, handy, adresse, schluessel);
+        Freund f1 = new Freund(vorname, nachname, geburtstag, telefon, handy, adresse, schluessel);
 
         freundSpeichern(f1); // Array instead of friend
         System.out.println("....................................");
@@ -80,17 +81,20 @@ public class Kartei {
     }
 
     private void freundeAnzeigen() throws Exception {
-         FileInputStream fis = new FileInputStream("friends.tmp");
-         ObjectInputStream ois = new ObjectInputStream(fis);
+        FileInputStream fis = new FileInputStream("friends.tmp");
+        ObjectInputStream ois = new ObjectInputStream(fis);
         freunde = (Freund[]) ois.readObject();
         System.out.println("....................................");
-        System.out.println("All your friends:");
+        System.out.println("Telefonliste:");
 
         for (int i = 0; i < freunde.length; i++) {
-            if(freunde[i] != null){ // Zeigt nur tatsächliche Einträge
+            if (freunde[i] != null) { // Zeigt nur tatsächliche Einträge
                 System.out.println(freunde[i].getName());
+                System.out.println(" Handy: " + freunde[i].getHandy());
+                System.out.println(" Telefon: " + freunde[i].getTelefon());
+                System.out.println("..................");
             }
-          }
+        }
 
         System.out.println("....................................");
         ois.close();
@@ -103,12 +107,12 @@ public class Kartei {
         auswahlAnzeigen();
     }
 
-    private void freundFinden( String eingabe) throws Exception {
-         FileInputStream fis = new FileInputStream("friends.tmp");
-         ObjectInputStream ois = new ObjectInputStream(fis);
-         ArrayList<Freund> friends = (ArrayList<Freund>) ois.readObject();
+    private void freundFinden(String eingabe) throws Exception {
+        FileInputStream fis = new FileInputStream("friends.tmp");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        ArrayList<Freund> friends = (ArrayList<Freund>) ois.readObject();
         ois.close();
-         Freund foundFriend;
+        Freund foundFriend;
 
         // ArrayList <Freund> filteredFriends = friends.filter()
         // friends.get()
@@ -127,8 +131,8 @@ public class Kartei {
         System.out.println("Bitte Namen eingeben und dann RETURN eingeben");
         System.out.println("....................................");
 
-         Scanner input = new Scanner(System.in); 
-         String eingabe = input.nextLine();
+        Scanner input = new Scanner(System.in);
+        String eingabe = input.nextLine();
 
         freundFinden(eingabe); // sollte freund returnen
 
@@ -137,7 +141,7 @@ public class Kartei {
         System.out.println("<2> Nein");
 
         if (input.hasNextInt()) {
-             String auswahl = input.next();
+            String auswahl = input.next();
             switch (auswahl) {
                 case "1": {
                     freundBearbeiten();
@@ -156,7 +160,7 @@ public class Kartei {
     }
     // ============================== Plus bas pas important
 
-    public static void main( String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
         // Hauptmethode (wird ausgeführt beim Aufruf)
         Kartei kartei = null;
         if (args.length == 1) {
@@ -178,22 +182,22 @@ public class Kartei {
         System.out.println("<3> Freund veraendern");
         System.out.println("<4> Freund loeschen");
         System.out.println("<5> Anzahl gespeicherter Freunde angeben");
-        System.out.println("<6> Alle Freunde anzeigen");
+        System.out.println("<6> Telefonliste ausgeben");
         System.out.println("<7> Beenden");
         auswahlAuswerten();
     }
 
     // Die Methode auswahlAuswerten wertet die Eingabe des Anwenders aus
     private void auswahlAuswerten() throws Exception {
-         Scanner input = new Scanner(System.in); // Never closed ?
-         int auswahl = 0;
-         if(input.hasNextInt()){
+        Scanner input = new Scanner(System.in); // Never closed ?
+        int auswahl = 0;
+        if (input.hasNextInt()) {
             auswahl = input.nextInt(); // was wenn String
-         } else {
+        } else {
             System.out.println("Please use a number between 1 and 7. You used: " + input.next());
             auswahlAuswerten();
-         }        
-         input.nextLine(); // Zeilenumbruch einlesen
+        }
+        input.nextLine(); // Zeilenumbruch einlesen
         // input.close();
 
         switch (auswahl) {
@@ -237,14 +241,29 @@ public class Kartei {
     }
 
     private void bestandAbfragen() throws Exception {
-         FileInputStream fis = new FileInputStream("friends.tmp");
-         ObjectInputStream ois = new ObjectInputStream(fis);
-         ArrayList<Freund> friends = (ArrayList<Freund>) ois.readObject();
-        bestand = friends.size();
 
-        System.out.println("....................................");
-        System.out.println("Du hast " + bestand + " Freunde in deiner Kartei.");
-        System.out.println("....................................");
+        File file = new File("friends.tmp");
+        if (file.length() != 0) {
+            FileInputStream fis = new FileInputStream("friends.tmp");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            freunde = (Freund[]) ois.readObject();
+            int bestand = 0;
+
+            for (int i = 0; i < freunde.length; i++) {
+                if (freunde[i] != null) { // Zeigt nur tatsächliche Einträge
+                    bestand++;
+                }
+            }
+
+            System.out.println("....................................");
+            System.out.println("Du hast " + bestand + " Freunde in deiner Kartei.");
+            System.out.println("....................................");
+        } else {
+            System.out.println("....................................");
+            System.out.println("Du hast keine Freunde in deiner Kartei.");
+            System.out.println("....................................");
+        }
+
         auswahlAnzeigen();
     }
 
