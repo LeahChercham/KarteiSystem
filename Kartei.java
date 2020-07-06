@@ -26,36 +26,28 @@ public class Kartei {
         }
     }
 
-    // arrayList with initial capacity 100
-    // private ArrayList<Freund> friendsArray = new ArrayList<Freund>(100);
+    // Initial Array mit 100 Freunden
     Freund[] freunde = new Freund[100];
 
     private void freundSpeichern( Freund freund) throws Exception {
-        FileInputStream fis = new FileInputStream("friends.tmp");
-        ObjectInputStream ois = new ObjectInputStream(fis);
-        // ArrayList<Freund> friends = (ArrayList<Freund>) ois.readObject();
-        // friendsArray = (ArrayList<Freund>) ois.readObject();
-        freunde = (Freund[]) ois.readObject();
+
+        // Error handler: falls File leer, nicht versuchen Daten zu ziehen
+        File file = new File("friends.tmp");
+        if(file.length() != 0){
+            FileInputStream fis = new FileInputStream("friends.tmp");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            freunde = (Freund[]) ois.readObject();
+        }
         
         for (int i = 0; i < freunde.length; i++) {
-            if(freunde[i] != null){ // Findet leeren Eintrag
-                System.out.println("Hier ist schon " + freunde[i].getName() + " at place " + i);
-            }
-            if(freunde[i] == null){ // Findet leeren Eintrag
+            if(freunde[i] == null){ // Findet leeren Eintrag und überschreibt ihn mit Freund
                 freunde[i] = freund;
-                System.out.println("AHHHHHHHH" + freunde[i].getName() + "at place " + i);
                 break;
             }
-          }
-
-
-        // friendsArray.add(freund);
-        // freunde[0] = freund; // hat immer den ersten überschrieben
-
+        }
 
          FileOutputStream fos = new FileOutputStream("friends.tmp");
          ObjectOutputStream oos = new ObjectOutputStream(fos);
-        // oos.writeObject(friendsArray);
         oos.writeObject(freunde);
         oos.flush();
         oos.close();
@@ -90,16 +82,13 @@ public class Kartei {
     private void freundeAnzeigen() throws Exception {
          FileInputStream fis = new FileInputStream("friends.tmp");
          ObjectInputStream ois = new ObjectInputStream(fis);
-        //  ArrayList<Freund> friends = (ArrayList<Freund>) ois.readObject();
         freunde = (Freund[]) ois.readObject();
         System.out.println("....................................");
         System.out.println("All your friends:");
-        // freunde.forEach(friend -> System.out.println(friend.getName()));
+
         for (int i = 0; i < freunde.length; i++) {
-            if(freunde[i] != null){ // Zeigt nur tatsächliche Einträges
+            if(freunde[i] != null){ // Zeigt nur tatsächliche Einträge
                 System.out.println(freunde[i].getName());
-            } else {
-                System.out.println(freunde[i]);
             }
           }
 
@@ -138,7 +127,7 @@ public class Kartei {
         System.out.println("Bitte Namen eingeben und dann RETURN eingeben");
         System.out.println("....................................");
 
-         Scanner input = new Scanner(System.in); // Never closed ?
+         Scanner input = new Scanner(System.in); 
          String eingabe = input.nextLine();
 
         freundFinden(eingabe); // sollte freund returnen
@@ -168,12 +157,11 @@ public class Kartei {
     // ============================== Plus bas pas important
 
     public static void main( String[] args) throws Exception {
+        // Hauptmethode (wird ausgeführt beim Aufruf)
         Kartei kartei = null;
-        // Hier Kartei kreeieren ? Wie ruft man methoden von der command line java ?
         if (args.length == 1) {
             kartei = new Kartei(args[0]);
             kartei.auswahlAnzeigen();
-            // kartei.datenSpeichern(args[0]);
         } else {
             System.out.println("....................................");
             System.out.println("Aufruf mit: java Kartei friends.tmp");
@@ -198,8 +186,14 @@ public class Kartei {
     // Die Methode auswahlAuswerten wertet die Eingabe des Anwenders aus
     private void auswahlAuswerten() throws Exception {
          Scanner input = new Scanner(System.in); // Never closed ?
-         int auswahl = input.nextInt();
-        input.nextLine(); // Zeilenumbruch einlesen
+         int auswahl = 0;
+         if(input.hasNextInt()){
+            auswahl = input.nextInt(); // was wenn String
+         } else {
+            System.out.println("Please use a number between 1 and 7. You used: " + input.next());
+            auswahlAuswerten();
+         }        
+         input.nextLine(); // Zeilenumbruch einlesen
         // input.close();
 
         switch (auswahl) {
