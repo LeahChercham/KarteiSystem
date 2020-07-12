@@ -263,6 +263,7 @@ public class Kartei {
                 foundFriend.setVorname(eingabe);
                 karteiAktualisieren(foundFriend);
                 System.out.println("Vorname geaendert zu : " + foundFriend.getVorname());
+                break;
             }
             case 2: {
                 System.out.println("....................................");
@@ -277,6 +278,7 @@ public class Kartei {
                 foundFriend.setNachname(eingabe);
                 karteiAktualisieren(foundFriend);
                 System.out.println("Nachname geaendert zu : " + foundFriend.getNachname());
+                break;
             }
             case 3: {
                 System.out.println("....................................");
@@ -291,6 +293,7 @@ public class Kartei {
                 foundFriend.setHandy(eingabe);
                 karteiAktualisieren(foundFriend);
                 System.out.println("Handy geaendert zu : " + foundFriend.getHandy());
+                break;
             }
             case 4: {
                 System.out.println("....................................");
@@ -305,6 +308,7 @@ public class Kartei {
                 foundFriend.setTelefon(eingabe);
                 karteiAktualisieren(foundFriend);
                 System.out.println("Telefon geaendert zu : " + foundFriend.getTelefon());
+                break;
             }
             case 5: {
                 System.out.println("....................................");
@@ -319,6 +323,7 @@ public class Kartei {
                 foundFriend.setAdresse(eingabe);
                 karteiAktualisieren(foundFriend);
                 System.out.println("Adresse geaendert zu : " + foundFriend.getAdresse());
+                break;
             }
         }
 
