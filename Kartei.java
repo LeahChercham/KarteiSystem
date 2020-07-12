@@ -121,7 +121,13 @@ public class Kartei {
         auswahlAnzeigen();
     }
 
-    private Freund einenFreundFinden(String eingabe) throws Exception {
+    /**
+     * Die Methode einenFreundSuchen() sucht einen Freund aufgrund von einer Eingabe
+     * 
+     * @param eingabe Eingabe des Benutzers, Vorname oder Nachname eines Freundes.
+     * @return foundFriend gefundener Freund des Typs Freund
+     */
+    private Freund einenFreundSuchen(String eingabe) throws Exception {
         File file = new File("friends.tmp");
         if (file.length() == 0) {
             fehlermeldungAnzeigen();
@@ -143,25 +149,17 @@ public class Kartei {
         return foundFriend;
     }
 
+    /**
+     * Die Methode loeschen() ersetzt den Freund durch null.
+     */
     private void loeschen() throws Exception {
-        // gleiche wie freund SUchen - Anfang
-        File file = new File("friends.tmp");
-        if (file.length() == 0) {
-            fehlermeldungAnzeigen();
-            return;
-        }
-        System.out.println("Bitte Namen oder Vornamen eingeben und dann RETURN eingeben");
-
-        Scanner input = new Scanner(System.in);
-        String eingabe = input.nextLine();
-
-        Freund foundFriend = einenFreundFinden(eingabe);
-        // gleiche wie Freund Suchen - Ende
+        Freund foundFriend = eingabeZumSuchen();
 
         System.out.println("Möchtest du " + foundFriend.getName() + " aus der Kartei entfernen?");
         System.out.println("<1> Nein");
         System.out.println("<2> Ja");
 
+        Scanner input = new Scanner(System.in);
         int auswahl = input.nextInt();
 
         switch (auswahl) {
@@ -171,7 +169,7 @@ public class Kartei {
             case 2: {
                 for (int i = 0; i < freunde.length; i++) {
                     if (freunde[i].getSchluessel() == foundFriend.getSchluessel()) { // Findet leeren Eintrag und
-                        // überschreibt ihn mit Freund
+                        // überschreibt ihn mit null
                         freunde[i] = null;
                         break;
                     }
@@ -190,6 +188,12 @@ public class Kartei {
 
     }
 
+    /**
+     * Die Methode eingabeZumSuchen() fordert den Benutzer auf, einen Freund zu
+     * suchen.
+     * 
+     * @return foundFriend gefundener Freund des Typs Freund
+     */
     private Freund eingabeZumSuchen() throws Exception {
         File file = new File("friends.tmp");
         if (file.length() == 0) {
@@ -202,7 +206,7 @@ public class Kartei {
         Scanner input = new Scanner(System.in);
         String eingabe = input.nextLine();
 
-        Freund foundFriend = einenFreundFinden(eingabe);
+        Freund foundFriend = einenFreundSuchen(eingabe);
         if (foundFriend == null) {
             System.out.println(eingabe + " wurde nicht gefunden.");
             auswahlAnzeigen();
@@ -210,7 +214,12 @@ public class Kartei {
         return foundFriend;
     }
 
-    private void freundFinden() throws Exception {
+    /**
+     * Die Methode freundDetailsAnzeigen() sucht einen Freund dank der Methode
+     * eingabeZumSuchen und gibt anschliessend alle Informationen ueber diesen
+     * Freund aus.
+     */
+    private void freundDetailsAnzeigen() throws Exception {
         Freund foundFriend = eingabeZumSuchen();
 
         System.out.println("Name: " + foundFriend.getName());
@@ -223,13 +232,22 @@ public class Kartei {
         auswahlAnzeigen();
     }
 
+    /**
+     * Die Methode fehlermeldungAnzeigen() wird ausgelöst wenn die Datei friends.tmp
+     * eine Laenge von 0 hat und besagt dass keine Freunde in der Kartei angelegt
+     * sind.
+     */
     private void fehlermeldungAnzeigen() throws Exception {
         System.out.println("Es sind keine Freunde in deiner Kartei.");
         auswahlAnzeigen();
     }
 
+    /**
+     * Die Methode bearbeiten() ermoeglicht aenderungen an einer Freundesinstanz
+     * vorzunehmen
+     */
     private void bearbeiten(Freund foundFriend) throws Exception {
-        System.out.println("Was moechtest du verändern?");
+        System.out.println("Was moechtest du veraendern?");
         System.out.println("<1> Vorname: " + foundFriend.getVorname());
         System.out.println("<2> Nachname: " + foundFriend.getNachname());
         System.out.println("<3> Handy: " + foundFriend.getHandy());
@@ -240,6 +258,10 @@ public class Kartei {
         bearbeitenAuswahlAuswaerten(foundFriend);
     }
 
+    /**
+     * Die Methode bearbeitenAuswahlAuswaerten() ermoeglicht die Bearbeitung einer
+     * Freundesinstanz je nach Eingabe des Benutzers.
+     */
     private void bearbeitenAuswahlAuswaerten(Freund foundFriend) throws Exception {
         Scanner input = new Scanner(System.in);
         int auswahl = 0;
@@ -324,6 +346,10 @@ public class Kartei {
 
     }
 
+    /**
+     * Die Methode karteiAktualisieren() speichert die Veraenderungen die an einer
+     * Instanz vorgenommen worden sind in der friends.tmp Datei
+     */
     private void karteiAktualisieren(Freund freund) throws Exception {
         for (int i = 0; i < freunde.length; i++) {
             if (freunde[i] != null) { // Zeigt nur tatsächliche Einträge
@@ -338,13 +364,17 @@ public class Kartei {
         oos.flush();
     }
 
+    /**
+     * Die Methode auswahlFreundVeraendern() sucht zuerst nach einem Freund und
+     * ermoeglicht dann dessen Veraenderung.
+     */
     private void auswahlFreundVeraendern() throws Exception {
         System.out.println("Bitte Namen oder Vornamen eingeben und dann RETURN eingeben");
 
         Scanner input = new Scanner(System.in);
         String eingabe = input.nextLine();
 
-        Freund foundFriend = einenFreundFinden(eingabe); // sollte freund returnen
+        Freund foundFriend = einenFreundSuchen(eingabe); // sollte freund returnen
         if (foundFriend == null) {
             System.out.println(eingabe + " wurde nicht gefunden.");
             auswahlAnzeigen();
@@ -373,6 +403,10 @@ public class Kartei {
     }
     // ============================== Plus bas pas important
 
+    /**
+     * Die Methode main() wird beim Aufruf ausgeführt. Sie zeigt als erste das
+     * Auswahlmenu an.
+     */
     public static void main(String[] args) throws Exception {
         // Hauptmethode (wird ausgeführt beim Aufruf)
         Kartei kartei = null;
@@ -387,7 +421,10 @@ public class Kartei {
 
     }
 
-    // Die Methode auswahlAnzeigen zeigt eine Auswahl an
+    /**
+     * Die Methode auswahlAnzeigen() zeigt die verschiedenen Optionen an von denen
+     * der Benutzer auswaehlen kann.
+     */
     private void auswahlAnzeigen() throws Exception {
         System.out.println("Bitte Zahl und dann RETURN eingeben:");
         System.out.println("<1> Freund anlegen");
@@ -400,7 +437,10 @@ public class Kartei {
         auswahlAuswerten();
     }
 
-    // Die Methode auswahlAuswerten wertet die Eingabe des Anwenders aus
+    /**
+     * Die Methode auswahlAuswerten() wertet die Auswahl des Benutzers aus und
+     * fuehrt die entsprechenden Methoden aus.
+     */
     private void auswahlAuswerten() throws Exception {
         Scanner input = new Scanner(System.in);
         int auswahl = 0;
@@ -417,11 +457,9 @@ public class Kartei {
                 neuAnlegen();
                 break;
             }
-            // Other functions to be made
             case 2: {
-                freundFinden();
+                freundDetailsAnzeigen();
                 break;
-
             }
             case 3: {
                 auswahlFreundVeraendern();
@@ -440,21 +478,19 @@ public class Kartei {
                 break;
             }
             case 7: {
-                // Hier Sachen speichern weil hier der einzige Ort zum Beenden des Programms
-                // sein soll. Alle anderen rufen auswahl anzeigen wieder auf
-                // das sollte in einer anderen Klasse sein zum Beispiel Verwaltung
                 break;
             }
             default:
-
                 System.out.println("Falsche Eingabe");
-
                 auswahlAnzeigen();
         }
     }
 
+    /**
+     * Die Methode bestandAbfragen() gibt den Benutzer Auskunft ueber die Anzahl der
+     * gespeicherten Freunde in der Kartei.
+     */
     private void bestandAbfragen() throws Exception {
-
         File file = new File("friends.tmp");
         if (file.length() != 0) {
             FileInputStream fis = new FileInputStream("friends.tmp");
@@ -467,13 +503,10 @@ public class Kartei {
                     bestand++;
                 }
             }
-
             System.out.println("Du hast " + bestand + " Freunde in deiner Kartei.");
-
         } else {
             fehlermeldungAnzeigen();
         }
-
         auswahlAnzeigen();
     }
 
