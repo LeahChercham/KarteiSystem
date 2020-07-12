@@ -145,6 +145,59 @@ public class Kartei {
         return foundFriend;
     }
 
+    private void freundLoeschen() throws Exception {
+
+        // gleiche wie freund SUchen - Anfang
+        File file = new File("friends.tmp");
+        if (file.length() == 0) {
+            fehlermeldungAnzeigen();
+            return;
+        }
+        System.out.println("....................................");
+        System.out.println("Bitte Namen oder Vornamen eingeben und dann RETURN eingeben");
+        System.out.println("....................................");
+
+        Scanner input = new Scanner(System.in);
+        String eingabe = input.nextLine();
+
+        Freund foundFriend = freundFinden(eingabe);
+        // gleiche wie Freund Suchen - Ende
+
+        System.out.println("....................................");
+        System.out.println("Möchtest du " + foundFriend.getName() + " aus der Kartei entfernen?");
+        System.out.println("<1> Nein");
+        System.out.println("<2> Ja");
+        System.out.println("....................................");
+
+        int auswahl = input.nextInt();
+
+        switch (auswahl) {
+            case 1: {
+                auswahlAnzeigen();
+            }
+            case 2: {
+                for (int i = 0; i < freunde.length; i++) {
+                    if (freunde[i].getSchluessel() == foundFriend.getSchluessel()) { // Findet leeren Eintrag und
+                                                                                     // überschreibt ihn mit Freund
+                        freunde[i] = null;
+                        break;
+                    }
+                }
+
+                FileOutputStream fos = new FileOutputStream("friends.tmp");
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(freunde);
+                oos.flush();
+
+                System.out.println("....................................");
+                System.out.println(foundFriend.getName() + " wurde aus der Kartei entfernt.");
+                System.out.println("....................................");
+
+            }
+        }
+
+    }
+
     private void freundSuchen() throws Exception { // in AuswahlFreundVeraendern vielleicht implementieren (nicht
                                                    // doppelt code)
         File file = new File("friends.tmp");
@@ -184,7 +237,7 @@ public class Kartei {
         auswahlAnzeigen();
     }
 
-    private void freundBearbeitenAuswahlAuswaerten(Freund foundFriend) {
+    private void freundBearbeitenAuswahlAuswaerten(Freund foundFriend) throws Exception {
         Scanner input = new Scanner(System.in);
         int auswahl = 0;
         if (input.hasNextInt()) {
@@ -207,10 +260,26 @@ public class Kartei {
                     eingabe = newInput.nextLine();
                 }
                 foundFriend.setVorname(eingabe);
+                karteiAktualisieren(foundFriend);
                 System.out.println("Vorname geaendert zu : " + foundFriend.getVorname());
-                return;
+
             }
         }
+
+    }
+
+    private void karteiAktualisieren(Freund freund) throws Exception {
+        for (int i = 0; i < freunde.length; i++) {
+            if (freunde[i] != null) { // Zeigt nur tatsächliche Einträge
+                if (freunde[i].getSchluessel() == freund.getSchluessel()) {
+                    freunde[i] = freund;
+                }
+            }
+        }
+        FileOutputStream fos = new FileOutputStream("friends.tmp");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(freunde);
+        oos.flush();
     }
 
     private void auswahlFreundVeraendern() throws Exception {
