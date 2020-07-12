@@ -146,7 +146,6 @@ public class Kartei {
     }
 
     private void freundLoeschen() throws Exception {
-
         // gleiche wie freund SUchen - Anfang
         File file = new File("friends.tmp");
         if (file.length() == 0) {
@@ -193,6 +192,7 @@ public class Kartei {
                 System.out.println(foundFriend.getName() + " wurde aus der Kartei entfernt.");
                 System.out.println("....................................");
 
+                auswahlAnzeigen();
             }
         }
 
@@ -374,6 +374,7 @@ public class Kartei {
                 break;
             }
             case 4: {
+                freundLoeschen();
                 break;
             }
             case 5: {
