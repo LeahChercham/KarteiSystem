@@ -42,7 +42,6 @@ public class Kartei {
             FileInputStream fis = new FileInputStream("friends.tmp");
             ObjectInputStream ois = new ObjectInputStream(fis);
             freunde = (Freund[]) ois.readObject();
-            ois.close();
         }
 
         for (int i = 0; i < freunde.length; i++) {
@@ -56,7 +55,6 @@ public class Kartei {
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(freunde);
         oos.flush();
-        oos.close();
     }
 
     private void freundAnlegen() throws Exception {
@@ -82,7 +80,6 @@ public class Kartei {
         System.out.println("....................................");
         System.out.println("Der Freund " + vorname + " " + nachname + " wurde in der Kartei angelegt.");
         System.out.println("....................................");
-        eingabe.close();
         auswahlAnzeigen();
 
     }
@@ -109,7 +106,6 @@ public class Kartei {
         }
 
         System.out.println("....................................");
-        ois.close();
         auswahlAnzeigen();
     }
 
@@ -137,7 +133,6 @@ public class Kartei {
         ObjectInputStream ois = new ObjectInputStream(fis);
         freunde = (Freund[]) ois.readObject();
 
-        ois.close();
         Freund foundFriend = null;
 
         for (int i = 0; i < freunde.length; i++) {
@@ -163,7 +158,6 @@ public class Kartei {
 
         Scanner input = new Scanner(System.in);
         String eingabe = input.nextLine();
-        input.close();
 
         Freund foundFriend = freundFinden(eingabe);
         if (foundFriend == null) {
@@ -191,7 +185,7 @@ public class Kartei {
     }
 
     private void freundBearbeitenAuswahlAuswaerten(Freund foundFriend) {
-        Scanner input = new Scanner(System.in); // Never closed ?
+        Scanner input = new Scanner(System.in);
         int auswahl = 0;
         if (input.hasNextInt()) {
             auswahl = input.nextInt(); // was wenn String
@@ -201,7 +195,6 @@ public class Kartei {
         }
         input.nextLine();
 
-        input.close();
         switch (auswahl) {
             case 1: {
                 System.out.println("....................................");
@@ -212,7 +205,6 @@ public class Kartei {
                 String eingabe = foundFriend.getVorname();
                 if (newInput.hasNextLine()) {
                     eingabe = newInput.nextLine();
-                    newInput.close();
                 }
                 foundFriend.setVorname(eingabe);
                 System.out.println("Vorname geaendert zu : " + foundFriend.getVorname());
@@ -252,7 +244,6 @@ public class Kartei {
                     break;
                 }
             }
-            input.close();
         }
 
         auswahlAnzeigen();
@@ -288,7 +279,7 @@ public class Kartei {
 
     // Die Methode auswahlAuswerten wertet die Eingabe des Anwenders aus
     private void auswahlAuswerten() throws Exception {
-        Scanner input = new Scanner(System.in); // Never closed ?
+        Scanner input = new Scanner(System.in);
         int auswahl = 0;
         if (input.hasNextInt()) {
             auswahl = input.nextInt(); // was wenn String
@@ -297,7 +288,6 @@ public class Kartei {
             auswahlAuswerten();
         }
         input.nextLine(); // Zeilenumbruch einlesen
-        input.close();
 
         switch (auswahl) {
             case 1: {
@@ -346,7 +336,6 @@ public class Kartei {
             FileInputStream fis = new FileInputStream("friends.tmp");
             ObjectInputStream ois = new ObjectInputStream(fis);
             freunde = (Freund[]) ois.readObject();
-            ois.close();
             int bestand = 0;
 
             for (int i = 0; i < freunde.length; i++) {
