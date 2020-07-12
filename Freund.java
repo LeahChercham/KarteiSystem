@@ -1,21 +1,20 @@
 import java.io.Serializable;
 
-/*
-Die Klasse Freund verwaltet Freundesdaten
-Version 1.0
-Author: Leah Chercham
-*/
+/** Die Klasse Freund speichert die Freundesdaten.
+ * @version 1.0
+ * @author Leah Chercham
+ */
 
 public class Freund implements Serializable {
     private String vorname;
     private String nachname;
     private String geburtstag;
-    private int telefon;
-    private int handy;
+    private String telefon;
+    private String handy;
     private String adresse;
     private String schluessel; // eindeutige identifizierung mit stringified UUID
 
-    public Freund(String vorname, String nachname, String geburtstag, int telefon, int handy, String adresse,
+    public Freund(String vorname, String nachname, String geburtstag, String telefon, String handy, String adresse,
             String schluessel) {
         this.vorname = vorname;
         this.nachname = nachname;
@@ -53,14 +52,14 @@ public class Freund implements Serializable {
     /** Die Methode setTelefon() veraendert die Telefonnummer des Freundes.
      * @param telefon Telefon des Freundes.
      */
-    public void setTelefon(int telefon) {
+    public void setTelefon(String telefon) {
         this.telefon = telefon;
     }
 
     /** Die Methode setHandy() veraendert die Handynummer des Freundes.
      * @param handy Handy des Freundes.
      */
-    public void setHandy(int handy) {
+    public void setHandy(String handy) {
         this.handy = handy;
     }
 
@@ -105,14 +104,14 @@ public class Freund implements Serializable {
     /** Die Methode getHandy() gibt die Handynummer des Freundes zurück.
      * @return handy der Person von Typ int.
      */
-    public int getHandy() {
+    public String getHandy() {
         return handy;
     }
 
     /** Die Methode getTelefon() gibt die Telefonnummer des Freundes zurück.
      * @return telefon der Person von Typ int.
      */
-    public int getTelefon() {
+    public String getTelefon() {
         return telefon;
     }
 

@@ -1,16 +1,14 @@
 
-/*
-Die Klasse Kartei verwaltet die gesamten Freunde
-Version 1.0
-Author: Leah Chercham
-*/
+/** Die Klasse Kartei verwaltet die Freundesdaten.
+ * @version 1.0
+ * @author Leah Chercham
+ */
+
 
 /*
 Notes:
-
 - UML
 - Bearbeitung eines Objektes
-- mehrere Freunde finden + Auswählen können
 - Text schreiben
 */
 
@@ -20,7 +18,9 @@ import java.util.UUID;
 
 public class Kartei {
 
-    // Friends Datei anlegen
+    /** Die Methode Kartei() prüft ob die Kartei bereits existiert und erstellt eine falls nicht.
+     * @param dateiName Name der Datei.
+     */
     public Kartei(String dateiName) throws Exception {
         File file = new File(dateiName);
         if (file.exists()) {
@@ -30,22 +30,26 @@ public class Kartei {
         }
     }
 
-    // Initial Array mit 100 Freunden
+    // Die Kartei enthält Platz zur Speicherung von 100 Freunden.
     Freund[] freunde = new Freund[100];
 
-    // Freund speichern in Datei
+
+    /** Die Methode speichern() aktualisiert die Kartei friends.tmp mit den neuen Daten aus der Methode neuAnlegen().
+     * @param freund eine Instanz der Klasse Freund.
+     */
     private void speichern(Freund freund) throws Exception {
 
-        // Error handler: falls File leer, nicht versuchen Daten zu ziehen
         File file = new File("friends.tmp");
-        if (file.length() != 0) {
+        // Falls die Datei leer ist wird nicht versucht die Datei zu lesen.
+        if (file.length() != 0) { 
             FileInputStream fis = new FileInputStream("friends.tmp");
             ObjectInputStream ois = new ObjectInputStream(fis);
             freunde = (Freund[]) ois.readObject();
         }
-
+        
+        // Findet leeren Eintrag und überschreibt ihn mit Freund
         for (int i = 0; i < freunde.length; i++) {
-            if (freunde[i] == null) { // Findet leeren Eintrag und überschreibt ihn mit Freund
+            if (freunde[i] == null) { 
                 freunde[i] = freund;
                 break;
             }
@@ -57,6 +61,10 @@ public class Kartei {
         oos.flush();
     }
 
+
+    /** Die Methode neuAnlegen() nimmt die Daten ueber den neuen Freund auf.
+     *  Die Daten werden anschliessend als Parameter an die Methode speichern() gegeben.
+     */
     private void neuAnlegen() throws Exception {
         Scanner eingabe = new Scanner(System.in);
         System.out.print("Vorname eingeben: ");
@@ -66,22 +74,21 @@ public class Kartei {
         System.out.print("Geburtstag eingeben: ");
         String geburtstag = eingabe.next();
         System.out.print("Handy Nummer eingeben: ");
-        int handy = eingabe.nextInt();
+        String handy = eingabe.next();
         System.out.print("Telefon Nummer eingeben: ");
-        int telefon = eingabe.nextInt();
+        String telefon = eingabe.next();
         System.out.print("Adresse eingeben: ");
         String adresse = eingabe.next();
         String schluessel = UUID.randomUUID().toString();
 
-        // Create instance of Freund
+        // Erstellung einer neuen Instanz der Klasse Freund
         Freund f1 = new Freund(vorname, nachname, geburtstag, telefon, handy, adresse, schluessel);
 
-        speichern(f1); // Array instead of friend
-        System.out.println("....................................");
-        System.out.println("Der Freund " + vorname + " " + nachname + " wurde in der Kartei angelegt.");
-        System.out.println("....................................");
-        auswahlAnzeigen();
+        speichern(f1);
 
+        System.out.println("Der Freund " + vorname + " " + nachname + " wurde in der Kartei angelegt.");
+
+        auswahlAnzeigen();
     }
 
     private void alleAnzeigen() throws Exception {
@@ -93,7 +100,6 @@ public class Kartei {
         FileInputStream fis = new FileInputStream("friends.tmp");
         ObjectInputStream ois = new ObjectInputStream(fis);
         freunde = (Freund[]) ois.readObject();
-        System.out.println("....................................");
         System.out.println("Telefonliste:");
 
         for (int i = 0; i < freunde.length; i++) {
@@ -105,7 +111,6 @@ public class Kartei {
             }
         }
 
-        System.out.println("....................................");
         auswahlAnzeigen();
     }
 
@@ -139,9 +144,7 @@ public class Kartei {
             fehlermeldungAnzeigen();
             return;
         }
-        System.out.println("....................................");
         System.out.println("Bitte Namen oder Vornamen eingeben und dann RETURN eingeben");
-        System.out.println("....................................");
 
         Scanner input = new Scanner(System.in);
         String eingabe = input.nextLine();
@@ -149,11 +152,9 @@ public class Kartei {
         Freund foundFriend = einenFreundFinden(eingabe);
         // gleiche wie Freund Suchen - Ende
         
-        System.out.println("....................................");
         System.out.println("Möchtest du " + foundFriend.getName() + " aus der Kartei entfernen?");
         System.out.println("<1> Nein");
         System.out.println("<2> Ja");
-        System.out.println("....................................");
         
         int auswahl = input.nextInt();
         
@@ -175,9 +176,9 @@ public class Kartei {
                 oos.writeObject(freunde);
                 oos.flush();
                 
-                System.out.println("....................................");
+    
                 System.out.println(foundFriend.getName() + " wurde aus der Kartei entfernt.");
-                System.out.println("....................................");
+    
                 
                 auswahlAnzeigen();
             }
@@ -192,9 +193,7 @@ public class Kartei {
             fehlermeldungAnzeigen();
             return;
         }
-        System.out.println("....................................");
         System.out.println("Bitte Namen oder Vornamen eingeben und dann RETURN eingeben");
-        System.out.println("....................................");
 
         Scanner input = new Scanner(System.in);
         String eingabe = input.nextLine();
@@ -204,30 +203,24 @@ public class Kartei {
             System.out.println(eingabe + " wurde nicht gefunden.");
             auswahlAnzeigen();
         }
-        System.out.println("....................................");
         System.out.println("Name: " + foundFriend.getName());
         System.out.println("Handy: " + foundFriend.getHandy());
         System.out.println("Telefon: " + foundFriend.getTelefon());
         System.out.println("Adresse: " + foundFriend.getAdresse());
         System.out.println("Geburtstag: " + foundFriend.getGeburtstag());
         System.out.println("Schluessel: " + foundFriend.getSchluessel());
-        System.out.println("....................................");
         
         auswahlAnzeigen();
         
     }
 
     private void fehlermeldungAnzeigen() throws Exception {
-        System.out.println("....................................");
         System.out.println("Es sind keine Freunde in deiner Kartei.");
-        System.out.println("....................................");
         auswahlAnzeigen();
     }
     
     private void bearbeiten(Freund foundFriend) throws Exception {
-        System.out.println("....................................");
         System.out.println("Was moechtest du verändern?");
-        System.out.println("....................................");
         System.out.println("<1> Vorname: " + foundFriend.getVorname());
         System.out.println("<2> Nachname: " + foundFriend.getNachname());
         System.out.println("<3> Handy: " + foundFriend.getHandy());
@@ -251,9 +244,9 @@ public class Kartei {
 
         switch (auswahl) {
             case 1: {
-                System.out.println("....................................");
+    
                 System.out.println("Bitte den neuen VORNAMEN eingeben und mit RETURN bestaetigen");
-                System.out.println("....................................");
+    
     
                 Scanner newInput = new Scanner(System.in);
                 String eingabe = foundFriend.getVorname();
@@ -266,9 +259,9 @@ public class Kartei {
                 break;
             }
             case 2: {
-                System.out.println("....................................");
+    
                 System.out.println("Bitte den neuen NACHNAMEN eingeben und mit RETURN bestaetigen");
-                System.out.println("....................................");
+    
 
                 Scanner newInput = new Scanner(System.in);
                 String eingabe = foundFriend.getNachname();
@@ -281,14 +274,14 @@ public class Kartei {
                 break;
             }
             case 3: {
-                System.out.println("....................................");
+    
                 System.out.println("Bitte den neuen HANDY eingeben und mit RETURN bestaetigen");
-                System.out.println("....................................");
+    
 
                 Scanner newInput = new Scanner(System.in);
-                int eingabe = foundFriend.getHandy();
-                if (newInput.hasNextInt()) {
-                    eingabe = newInput.nextInt();
+                String eingabe = foundFriend.getHandy();
+                if (newInput.hasNext()) {
+                    eingabe = newInput.next();
                 }
                 foundFriend.setHandy(eingabe);
                 karteiAktualisieren(foundFriend);
@@ -296,14 +289,14 @@ public class Kartei {
                 break;
             }
             case 4: {
-                System.out.println("....................................");
+    
                 System.out.println("Bitte den neuen TELEFON eingeben und mit RETURN bestaetigen");
-                System.out.println("....................................");
+    
 
                 Scanner newInput = new Scanner(System.in);
-                int eingabe = foundFriend.getTelefon();
-                if (newInput.hasNextInt()) {
-                    eingabe = newInput.nextInt();
+                String eingabe = foundFriend.getTelefon();
+                if (newInput.hasNext()) {
+                    eingabe = newInput.next();
                 }
                 foundFriend.setTelefon(eingabe);
                 karteiAktualisieren(foundFriend);
@@ -311,9 +304,9 @@ public class Kartei {
                 break;
             }
             case 5: {
-                System.out.println("....................................");
+    
                 System.out.println("Bitte den neuen ADRESSE eingeben und mit RETURN bestaetigen");
-                System.out.println("....................................");
+    
 
                 Scanner newInput = new Scanner(System.in);
                 String eingabe = foundFriend.getAdresse();
@@ -344,9 +337,7 @@ public class Kartei {
     }
 
     private void auswahlFreundVeraendern() throws Exception {
-        System.out.println("....................................");
         System.out.println("Bitte Namen oder Vornamen eingeben und dann RETURN eingeben");
-        System.out.println("....................................");
 
         Scanner input = new Scanner(System.in);
         String eingabe = input.nextLine();
@@ -387,9 +378,9 @@ public class Kartei {
             kartei = new Kartei(args[0]);
             kartei.auswahlAnzeigen();
         } else {
-            System.out.println("....................................");
+
             System.out.println("Aufruf mit: java Kartei friends.tmp");
-            System.out.println("....................................");
+
         }
 
     }
@@ -453,9 +444,9 @@ public class Kartei {
                 break;
             }
             default:
-                System.out.println("....................................");
+    
                 System.out.println("Falsche Eingabe");
-                System.out.println("....................................");
+    
                 auswahlAnzeigen();
         }
     }
@@ -475,9 +466,9 @@ public class Kartei {
                 }
             }
 
-            System.out.println("....................................");
+
             System.out.println("Du hast " + bestand + " Freunde in deiner Kartei.");
-            System.out.println("....................................");
+
         } else {
             fehlermeldungAnzeigen();
         }
