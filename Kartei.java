@@ -5,7 +5,6 @@ Version 1.0
 Author: Leah Chercham
 */
 
-
 /*
 Notes:
 
@@ -22,17 +21,11 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class Kartei {
-    
 
     // Friends Datei anlegen
     public Kartei(String dateiName) throws Exception {
         File file = new File(dateiName);
         if (file.exists()) {
-            // ObjectInputStream ois = new ObjectInputStream(new
-            // FileInputStream(dateiName));
-
-            // System.out.println("ois: " + ois);
-            // System.out.println("ois.readobj: " + ois.readObject());
             return;
         } else {
             file.createNewFile();
@@ -83,7 +76,7 @@ public class Kartei {
         String adresse = eingabe.next();
         String schluessel = UUID.randomUUID().toString();
 
-        // C'est ici que je crée mon instance d'ami
+        // Create instance of Freund
         Freund f1 = new Freund(vorname, nachname, geburtstag, telefon, handy, adresse, schluessel);
 
         freundSpeichern(f1); // Array instead of friend
@@ -114,9 +107,18 @@ public class Kartei {
         auswahlAnzeigen();
     }
 
-    private void freundBearbeiten() throws Exception {
+    private void freundBearbeiten(Freund foundFriend) throws Exception {
         System.out.println("....................................");
-        System.out.println("Du wirst deinen Freund veraendern!");
+        System.out.println("Was moechtest du verändern?");
+        System.out.println("....................................");
+        System.out.println("<1> Vorname: " + foundFriend.getVorname());
+        System.out.println("<2> Nachname: " + foundFriend.getNachname());
+        System.out.println("<3> Handy: " + foundFriend.getHandy());
+        System.out.println("<4> Telefon: " + foundFriend.getTelefon());
+        System.out.println("<5> Adresse: " + foundFriend.getAdresse());
+        System.out.println("<6> Geburtstag: " + foundFriend.getGeburtstag());
+        System.out.println("<7> Schluessel: " + foundFriend.getSchluessel());
+
         auswahlAnzeigen();
     }
 
@@ -138,7 +140,7 @@ public class Kartei {
 
         for (int i = 0; i < freunde.length; i++) {
             if (freunde[i] != null) { // Findet leeren Eintrag und überschreibt ihn mit Freund
-                if(freunde[i].getName().toUpperCase().contains(eingabe.toUpperCase())){
+                if (freunde[i].getName().toUpperCase().contains(eingabe.toUpperCase())) {
                     foundFriend = freunde[i];
                 }
             }
@@ -146,7 +148,8 @@ public class Kartei {
         return foundFriend;
     }
 
-    private void freundSuchen() throws Exception{ // in AuswahlFreundVeraendern vielleicht implementieren (nicht doppelt code)
+    private void freundSuchen() throws Exception { // in AuswahlFreundVeraendern vielleicht implementieren (nicht
+                                                   // doppelt code)
         System.out.println("....................................");
         System.out.println("Bitte Namen oder Vornamen eingeben und dann RETURN eingeben");
         System.out.println("....................................");
@@ -155,20 +158,47 @@ public class Kartei {
         String eingabe = input.nextLine();
 
         Freund foundFriend = freundFinden(eingabe);
-        if(foundFriend == null){
+        if (foundFriend == null) {
             System.out.println(eingabe + " wurde nicht gefunden.");
             auswahlAnzeigen();
         }
         System.out.println("....................................");
-        System.out.println("Name: "+foundFriend.getName());
-        System.out.println("Handy: "+foundFriend.getHandy());
-        System.out.println("Telefon: "+foundFriend.getTelefon());
-        System.out.println("Adresse: "+foundFriend.getAdresse());
-        System.out.println("Geburtstag: "+foundFriend.getGeburtstag());
-        System.out.println("Schluessel: "+foundFriend.getSchluessel());
+        System.out.println("Name: " + foundFriend.getName());
+        System.out.println("Handy: " + foundFriend.getHandy());
+        System.out.println("Telefon: " + foundFriend.getTelefon());
+        System.out.println("Adresse: " + foundFriend.getAdresse());
+        System.out.println("Geburtstag: " + foundFriend.getGeburtstag());
+        System.out.println("Schluessel: " + foundFriend.getSchluessel());
         System.out.println("....................................");
+
+        freundBearbeitenAuswahlAuswaerten(foundFriend);
+
         auswahlAnzeigen();
 
+    }
+
+    private void freundBearbeitenAuswahlAuswaerten(Freund foundFriend){
+        Scanner input = new Scanner(System.in); // Never closed ?
+        int auswahl = 0;
+        if (input.hasNextInt()) {
+            auswahl = input.nextInt(); // was wenn String
+        } else {
+            System.out.println("Please use a number between 1 and 7. You used: " + input.next());
+            freundBearbeitenAuswahlAuswaerten(foundFriend);
+        }
+        input.nextLine();
+
+        switch(auswahl){
+            case 1 : {
+                System.out.println("....................................");
+                System.out.println("Bitte den neuen VORNAMEN eingeben und mit RETURN bestaetigen");
+                System.out.println("....................................");
+
+                String eingabe = input.nextLine();
+                foundFriend.setVorname(eingabe);
+                System.out.println("Vorname geaendert zu : " + foundFriend.getVorname());
+            }
+        }
     }
 
     private void auswahlFreundVeraendern() throws Exception {
@@ -180,7 +210,7 @@ public class Kartei {
         String eingabe = input.nextLine();
 
         Freund foundFriend = freundFinden(eingabe); // sollte freund returnen
-        if(foundFriend == null){
+        if (foundFriend == null) {
             System.out.println(eingabe + " wurde nicht gefunden.");
             auswahlAnzeigen();
         }
@@ -194,7 +224,7 @@ public class Kartei {
             String auswahl = input.next();
             switch (auswahl) {
                 case "1": {
-                    freundBearbeiten();
+                    freundBearbeiten(foundFriend);
                     break;
                 }
                 case "2": {

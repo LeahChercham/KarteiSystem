@@ -26,10 +26,64 @@ public class Freund implements Serializable {
         this.schluessel = schluessel;
     }
 
-    public void modifyFriend(String attribute, Object[] value ) {
-        this[attribute] = value;
+    public void modifyFriend(String attribute, String text, int nummern) {
+        // Switch statement for attribute, pass value
+        switch (attribute) {
+            case "vorname": {
+                this.setVorname(text);
+                break;
+            }
+            case "nachname": {
+                this.setNachname(text);
+                break;
+            }
+            case "geburtstag": {
+                this.setGeburtstag(text);
+                break;
+            }
+            case "telefon": {
+                this.setTelefon(nummern);
+                break;
+            }
+            case "handy": {
+                this.setHandy(nummern);
+                break;
+            }
+            case "adresse": {
+                this.setAdresse(text);
+                break;
+            }
+        }
     }
 
+
+    // ********* Set methods
+    public void setNachname(String nachname) {
+        this.nachname = nachname;
+    }
+
+    public void setVorname(String vorname) {
+        this.vorname = vorname;
+    }
+
+    public void setGeburtstag(String geburtstag) {
+        this.geburtstag = geburtstag;
+    }
+
+    public void setTelefon(int telefon) {
+        this.telefon = telefon;
+    }
+
+    public void setHandy(int handy) {
+        this.handy = handy;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+
+    // ********* Get methods
     public String getName() {
         return (vorname + " " + nachname);
     }
