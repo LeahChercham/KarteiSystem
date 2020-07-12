@@ -167,6 +167,7 @@ public class Kartei {
         System.out.println("Geburtstag: "+foundFriend.getGeburtstag());
         System.out.println("Schluessel: "+foundFriend.getSchluessel());
         System.out.println("....................................");
+        auswahlAnzeigen();
 
     }
 

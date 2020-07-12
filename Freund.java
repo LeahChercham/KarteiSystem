@@ -14,10 +14,9 @@ public class Freund implements Serializable {
     private int handy;
     private String adresse; // Als Klasse ? Braucht PLZ Ort und Str.
     private String schluessel; // eindeutige identifizierung mit stringified UUID
-    
+
     public Freund(String vorname, String nachname, String geburtstag, int telefon, int handy, String adresse,
-    String schluessel)
-    {
+            String schluessel) {
         this.vorname = vorname;
         this.nachname = nachname;
         this.geburtstag = geburtstag;
@@ -27,45 +26,39 @@ public class Freund implements Serializable {
         this.schluessel = schluessel;
     }
 
-    // public String toString(){
-    //     return vorname + " " + nachname + " "  + geburtstag + " " + telefon + " " + handy + " " + adresse + " " + schluessel;
-    // }
-    
-    // ============================== Plus bas pas important
-    
-        // 2 Methoden um Vor und Nachname zu setzen / vielleicht für änderungen benutzen.
-        // public void setVorname(String n) {
-        //     vorname = n;
-        // }
-    
-        // public void setNachname(String n) {
-        //     nachname = n;
-        // }
-    
+    public void modifyFriend(String attribute, Object[] value ) {
+        this[attribute] = value;
+    }
 
+    public String getName() {
+        return (vorname + " " + nachname);
+    }
 
-        public String getName() {
-            return (vorname + " " + nachname);
-        }
-        public String getVorname(){
-            return vorname;
-        }
-        public String getNachname(){
-            return nachname;
-        }
-        public String getGeburtstag(){
-            return geburtstag;
-        }
-        public int getHandy(){
-            return handy;
-        }
-        public int getTelefon(){
-            return telefon;
-        }
-        public String getAdresse(){
-            return adresse;
-        }
-        public String getSchluessel(){
-            return schluessel;
-        }
+    public String getVorname() {
+        return vorname;
+    }
+
+    public String getNachname() {
+        return nachname;
+    }
+
+    public String getGeburtstag() {
+        return geburtstag;
+    }
+
+    public int getHandy() {
+        return handy;
+    }
+
+    public int getTelefon() {
+        return telefon;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public String getSchluessel() {
+        return schluessel;
+    }
 }
