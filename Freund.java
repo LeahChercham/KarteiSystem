@@ -7,6 +7,10 @@ Author: Leah Chercham
 */
 
 public class Freund implements Serializable {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
     private String vorname;
     private String nachname;
     private String geburtstag;
