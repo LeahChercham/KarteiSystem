@@ -36,6 +36,71 @@ public class Kartei {
     Freund[] freunde = new Freund[100];
 
     /**
+     * Die Methode auswahlAnzeigen() zeigt die verschiedenen Optionen an von denen
+     * der Benutzer auswaehlen kann.
+     */
+    private void auswahlAnzeigen() throws Exception {
+        System.out.println("Bitte Zahl und dann RETURN eingeben:");
+        System.out.println("<1> Freund anlegen");
+        System.out.println("<2> Freund suchen");
+        System.out.println("<3> Freund veraendern");
+        System.out.println("<4> Freund loeschen");
+        System.out.println("<5> Anzahl gespeicherter Freunde angeben");
+        System.out.println("<6> Telefonliste ausgeben");
+        System.out.println("<7> Beenden");
+        auswahlAuswerten();
+    }
+
+    /**
+     * Die Methode auswahlAuswerten() wertet die Auswahl des Benutzers aus und
+     * fuehrt die entsprechenden Methoden aus.
+     */
+    private void auswahlAuswerten() throws Exception {
+        Scanner input = new Scanner(System.in);
+        int auswahl = 0;
+        if (input.hasNextInt()) {
+            auswahl = input.nextInt(); // was wenn String
+        } else {
+            System.out.println("Please use a number between 1 and 7. You used: " + input.next());
+            auswahlAuswerten();
+        }
+        input.nextLine(); // Zeilenumbruch einlesen
+
+        switch (auswahl) {
+            case 1: {
+                neuAnlegen();
+                break;
+            }
+            case 2: {
+                freundDetailsAnzeigen();
+                break;
+            }
+            case 3: {
+                auswahlFreundVeraendern();
+                break;
+            }
+            case 4: {
+                loeschen();
+                break;
+            }
+            case 5: {
+                bestandAbfragen();
+                break;
+            }
+            case 6: {
+                alleAnzeigen();
+                break;
+            }
+            case 7: {
+                break;
+            }
+            default:
+                System.out.println("Falsche Eingabe");
+                auswahlAnzeigen();
+        }
+    }
+
+    /**
      * Die Methode speichern() aktualisiert die Kartei friends.tmp mit den neuen
      * Daten aus der Methode neuAnlegen().
      * 
@@ -419,71 +484,6 @@ public class Kartei {
 
         }
 
-    }
-
-    /**
-     * Die Methode auswahlAnzeigen() zeigt die verschiedenen Optionen an von denen
-     * der Benutzer auswaehlen kann.
-     */
-    private void auswahlAnzeigen() throws Exception {
-        System.out.println("Bitte Zahl und dann RETURN eingeben:");
-        System.out.println("<1> Freund anlegen");
-        System.out.println("<2> Freund suchen");
-        System.out.println("<3> Freund veraendern");
-        System.out.println("<4> Freund loeschen");
-        System.out.println("<5> Anzahl gespeicherter Freunde angeben");
-        System.out.println("<6> Telefonliste ausgeben");
-        System.out.println("<7> Beenden");
-        auswahlAuswerten();
-    }
-
-    /**
-     * Die Methode auswahlAuswerten() wertet die Auswahl des Benutzers aus und
-     * fuehrt die entsprechenden Methoden aus.
-     */
-    private void auswahlAuswerten() throws Exception {
-        Scanner input = new Scanner(System.in);
-        int auswahl = 0;
-        if (input.hasNextInt()) {
-            auswahl = input.nextInt(); // was wenn String
-        } else {
-            System.out.println("Please use a number between 1 and 7. You used: " + input.next());
-            auswahlAuswerten();
-        }
-        input.nextLine(); // Zeilenumbruch einlesen
-
-        switch (auswahl) {
-            case 1: {
-                neuAnlegen();
-                break;
-            }
-            case 2: {
-                freundDetailsAnzeigen();
-                break;
-            }
-            case 3: {
-                auswahlFreundVeraendern();
-                break;
-            }
-            case 4: {
-                loeschen();
-                break;
-            }
-            case 5: {
-                bestandAbfragen();
-                break;
-            }
-            case 6: {
-                alleAnzeigen();
-                break;
-            }
-            case 7: {
-                break;
-            }
-            default:
-                System.out.println("Falsche Eingabe");
-                auswahlAnzeigen();
-        }
     }
 
     /**
