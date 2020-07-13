@@ -92,6 +92,7 @@ public class Kartei {
                 break;
             }
             case 7: {
+                System.exit(0);
                 break;
             }
             default:
@@ -220,7 +221,7 @@ public class Kartei {
     private void loeschen() throws Exception {
         Freund foundFriend = eingabeZumSuchen();
 
-        System.out.println("Möchtest du " + foundFriend.getName() + " aus der Kartei entfernen?");
+        System.out.println("Moechtest du " + foundFriend.getName() + " aus der Kartei entfernen?");
         System.out.println("<1> Nein");
         System.out.println("<2> Ja");
 
