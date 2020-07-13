@@ -18,6 +18,23 @@ import java.util.UUID;
 public class Kartei {
 
     /**
+     * Die Methode main() wird beim Aufruf ausgeführt. Sie erstellt eine Instanz der
+     * Klasse Kartei. Sie zeigt als erste das Auswahlmenu an.
+     */
+    public static void main(String[] args) throws Exception {
+        // Hauptmethode (wird ausgeführt beim Aufruf)
+        Kartei kartei = null;
+        if (args.length == 1) {
+            kartei = new Kartei(args[0]);
+            kartei.auswahlAnzeigen();
+        } else {
+            System.out.println("Aufruf mit: java Kartei friends.tmp");
+
+        }
+
+    }
+
+    /**
      * Die Methode Kartei() prüft ob die Kartei bereits existiert und erstellt eine
      * falls nicht.
      * 
@@ -466,25 +483,6 @@ public class Kartei {
         }
 
         auswahlAnzeigen();
-    }
-    // ============================== Plus bas pas important
-
-    /**
-     * Die Methode main() wird beim Aufruf ausgeführt. Sie zeigt als erste das
-     * Auswahlmenu an.
-     */
-    public static void main(String[] args) throws Exception {
-        // Hauptmethode (wird ausgeführt beim Aufruf)
-        Kartei kartei = null;
-        if (args.length == 1) {
-            kartei = new Kartei(args[0]);
-            kartei.auswahlAnzeigen();
-        } else {
-
-            System.out.println("Aufruf mit: java Kartei friends.tmp");
-
-        }
-
     }
 
     /**
