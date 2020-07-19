@@ -22,7 +22,6 @@ public class Kartei {
      * Klasse Kartei. Sie zeigt als erste das Auswahlmenu an.
      */
     public static void main(String[] args) throws Exception {
-        // Hauptmethode (wird ausgeführt beim Aufruf)
         Kartei kartei = null;
         if (args.length == 1) {
             kartei = new Kartei(args[0]);
@@ -31,7 +30,6 @@ public class Kartei {
             System.out.println("Aufruf mit: java Kartei friends.tmp");
 
         }
-
     }
 
     /**
